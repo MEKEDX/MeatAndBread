@@ -1,0 +1,34 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <style name="Theme.MeatAndBread" parent="Theme.Material3.Dark.NoActionBar">
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:windowLightStatusBar">?attr/isLightTheme</item>
+
+        <item name="colorPrimary">@color/md_theme_dark_primary</item>
+        <item name="colorPrimaryContainer">@color/md_theme_dark_primaryContainer</item>
+        <item name="colorOnPrimary">@color/md_theme_dark_onPrimary</item>
+        <item name="colorOnPrimaryContainer">@color/md_theme_dark_onPrimaryContainer</item>
+        <item name="colorSecondary">@color/md_theme_dark_secondary</item>
+        <item name="colorSecondaryContainer">@color/md_theme_dark_secondaryContainer</item>
+        <item name="colorOnSecondary">@color/md_theme_dark_onSecondary</item>
+        <item name="colorOnSecondaryContainer">@color/md_theme_dark_onSecondaryContainer</item>
+        <!--        <item name="android:drawableTint">@color/md_theme_dark_onBackground_opacity</item>-->
+        <item name="colorAccent">@color/back_text_dark</item>
+
+        <item name="backgroundColor">@color/md_theme_dark_background</item>
+
+    </style>
+
+    <style name="splashScreenTheme" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenAnimatedIcon">@drawable/splash_screen_dark_mode</item>
+        <item name="windowSplashScreenBackground">@color/md_theme_dark_primary</item>
+        <item name="postSplashScreenTheme">@style/Theme.MeatAndBread</item>
+    </style>
+
+    <style name="SearchBarStyle" parent="@style/Widget.Material3.SearchBar">
+        <item name="android:background">@drawable/search_bar_background_dark</item>
+        <item name="android:elevation">6dp</item>
+        <item name="android:textColor">@color/md_theme_dark_onSurface</item>
+    </style>
+
+</resources>
