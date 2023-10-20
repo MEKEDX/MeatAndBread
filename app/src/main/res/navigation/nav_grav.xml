@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_grav"
+    app:startDestination="@id/home">
+
+    <fragment
+        android:id="@+id/home"
+        android:name="com.kh.mo.meatandbread.ui.home.HomeFragment"
+        android:label="HomeFragment" />
+    <fragment
+        android:id="@+id/mealsFragment"
+        android:name="com.kh.mo.meatandbread.ui.meals.MealsFragment"
+        android:label="MealsFragment" />
+    <fragment
+        android:id="@+id/mealFragment"
+        android:name="com.kh.mo.meatandbread.ui.meal.MealFragment"
+        android:label="MealFragment" />
+</navigation>
