@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="130dp"
+
+    android:layout_marginVertical="@dimen/margin_6"
+    tools:backgroundTint="@color/black"
+    app:cardCornerRadius="@dimen/radius_12">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/image_meal_cart"
+            android:layout_width="@dimen/width_158"
+            android:layout_height="@dimen/height_0"
+            android:scaleType="centerCrop"
+            tools:src="@drawable/meat8"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+
+
+            />
+        <TextView
+            android:id="@+id/meal_name"
+            style="@style/product_show_title"
+            android:layout_width="wrap_content"
+            app:layout_constraintVertical_bias=".1"
+            android:layout_marginTop="@dimen/margin_8"
+            android:layout_marginStart="@dimen/margin_16"
+            app:layout_constraintStart_toEndOf="@+id/image_meal_cart"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="حواشي بلدي" />
+
+        <TextView
+            android:id="@+id/meal_quantity"
+            style="@style/product_show_subTitle"
+            tools:text="1 كيلو جرام"
+            android:layout_marginStart="@dimen/margin_16"
+            app:layout_constraintStart_toEndOf="@+id/image_meal_cart"
+            app:layout_constraintTop_toBottomOf="@+id/meal_name" />
+        <LinearLayout
+            android:id="@+id/productQuantityContainer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_16"
+            android:layout_marginBottom="@dimen/radius_16"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginStart="@dimen/radius_16"
+            android:orientation="horizontal"
+            app:layout_constraintStart_toEndOf="@+id/image_meal_cart"
+            app:layout_constraintTop_toBottomOf="@+id/meal_quantity">
+
+            <ImageView
+                android:id="@+id/productQuantityMinus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:layout_gravity="center"
+                android:layout_marginEnd="@dimen/margin_16"
+                android:paddingBottom="10dp"
+                android:src="@drawable/minimize_product" />
+
+            <TextView
+                android:id="@+id/productQuantity_EditText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/product_quantity"
+                android:gravity="center"
+                android:maxLines="1"
+
+                android:padding="@dimen/padding_8"
+                tools:text="5000"
+                android:textColor="@color/white"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/productQuantityPlus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="@dimen/margin_16"
+                android:src="@drawable/add_product" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/meal_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:theme="@style/bigTextTheme"
+            app:drawableStartCompat="@drawable/money"
+            app:layout_constraintBottom_toBottomOf="@+id/productQuantityContainer"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="@dimen/radius_16"
+            app:layout_constraintTop_toTopOf="@+id/productQuantityContainer"
+            android:drawablePadding="@dimen/padding_2"
+            tools:text="5" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>
