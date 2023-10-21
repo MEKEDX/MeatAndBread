@@ -11,7 +11,9 @@ import com.kh.mo.meatandbread.R
 import com.kh.mo.meatandbread.model.Meal
 
 class MealsAdapter(private val context: Context?,
-                   private val mealList: List<Meal>) : RecyclerView.Adapter<MealsAdapter.MealViewHolder>() {
+                   private val meals: List<Meal>,
+                   private val onClickListener: OnClickListener)
+    : RecyclerView.Adapter<MealsAdapter.MealViewHolder>() {
 
 
 
@@ -21,13 +23,16 @@ class MealsAdapter(private val context: Context?,
     }
 
     override fun onBindViewHolder(holder: MealViewHolder, position: Int) {
-        val meal = mealList[position]
+        val meal = meals[position]
         holder.imageOfMeal.setImageResource(meal.image)
         holder.textOfMeal.text = meal.name
+        holder.itemView.setOnClickListener{
+            onClickListener.clickMeal(position)
+        }
     }
 
     override fun getItemCount(): Int {
-        return mealList.size
+        return meals.size
     }
 
     inner class MealViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
@@ -35,6 +40,7 @@ class MealsAdapter(private val context: Context?,
             val imageOfMeal: ImageView = itemView.findViewById(R.id.image_meal)
             val textOfMeal: TextView = itemView.findViewById(R.id.name_meal)
         }
+
 
 
 }
