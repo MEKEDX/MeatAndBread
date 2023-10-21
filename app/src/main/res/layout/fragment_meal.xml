@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/top_c"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height_0"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/bottom_c"
+        app:layout_constraintStart_toStartOf="parent">
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline4"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent=".2" />
+        <ImageView
+            android:id="@+id/meal_image"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:elevation="@dimen/elevation_8"
+            tools:src="@drawable/meat3"
+            android:scaleType="fitXY"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginBottom="@dimen/margin_16"
+            />
+
+        <ImageButton
+            android:id="@+id/back_from_meal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_8"
+            android:background="@drawable/rounded_background"
+            android:elevation="@dimen/elevation_8"
+            android:padding="@dimen/padding_8"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/guideline4"
+            app:layout_constraintStart_toStartOf="parent"
+            app:srcCompat="@drawable/arrow_back" />
+
+
+        <ImageButton
+            android:id="@+id/share_meal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/margin_8"
+            android:background="@drawable/rounded_background"
+            android:elevation="@dimen/margin_8"
+            app:layout_constraintTop_toTopOf="parent"
+            android:padding="@dimen/padding_8"
+            android:src="@drawable/share"
+            app:layout_constraintBottom_toTopOf="@+id/guideline4"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/bottom_c"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height_0"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/top_c">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/line0_end"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintGuide_end="15dp" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/line0_start"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.05"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/meal_name"
+            style="@style/product_show_title"
+            android:layout_width="wrap_content"
+            app:layout_constraintVertical_bias=".1"
+            android:layout_marginTop="@dimen/margin_8"
+           app:layout_constraintEnd_toStartOf="@+id/line0_end"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="حواشي بلدي" />
+
+
+        <TextView
+            android:id="@+id/meal_quantity"
+            style="@style/product_show_subTitle"
+            tools:text="1 كيلو جرام"
+            app:layout_constraintEnd_toStartOf="@+id/line0_end"
+            app:layout_constraintTop_toBottomOf="@+id/meal_name" />
+
+
+        <LinearLayout
+            android:id="@+id/productQuantityContainer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toTopOf="@+id/line"
+            app:layout_constraintEnd_toStartOf="@+id/line0_end"
+            app:layout_constraintTop_toBottomOf="@+id/meal_quantity">
+
+            <ImageView
+                android:id="@+id/productQuantityMinus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginEnd="@dimen/margin_16"
+                android:paddingBottom="10dp"
+                android:src="@drawable/minimize_product" />
+
+            <TextView
+                android:id="@+id/productQuantity_EditText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/product_quantity"
+                android:gravity="center"
+                android:maxLines="1"
+                android:padding="@dimen/padding_8"
+                tools:text="5000"
+                android:textColor="@color/white"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/productQuantityPlus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="@dimen/margin_16"
+                android:src="@drawable/add_product" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/meal_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:theme="@style/bigTextTheme"
+            app:drawableStartCompat="@drawable/money"
+            app:layout_constraintBottom_toBottomOf="@+id/productQuantityContainer"
+           app:layout_constraintStart_toEndOf="@+id/line0_start"
+            app:layout_constraintTop_toTopOf="@+id/productQuantityContainer"
+            android:drawablePadding="@dimen/padding_2"
+            tools:text="5" />
+
+
+        <View
+            android:id="@+id/line"
+            style="@style/product_show_line"
+            app:layout_constraintBottom_toTopOf="@+id/product_detail"
+            app:layout_constraintEnd_toStartOf="@id/line0_end"
+            app:layout_constraintStart_toEndOf="@id/line0_start"
+            app:layout_constraintTop_toBottomOf="@+id/productQuantityContainer" />
+
+        <TextView
+            android:id="@+id/product_detail"
+            style="@style/product_show_title.smallTitle"
+            android:layout_width="wrap_content"
+            android:text="@string/product_detail"
+            app:layout_constraintBottom_toTopOf="@+id/meal_details"
+            app:layout_constraintEnd_toStartOf="@+id/line0_end"
+            app:layout_constraintTop_toBottomOf="@+id/line" />
+
+
+        <TextView
+            android:id="@+id/meal_details"
+            style="@style/product_show_subTitle"
+            android:ellipsize="end"
+            android:maxLines="3"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toTopOf="@+id/add_to_basket"
+            app:layout_constraintEnd_toStartOf="@+id/line0_end"
+            app:layout_constraintStart_toEndOf="@+id/line0_start"
+            app:layout_constraintTop_toBottomOf="@+id/product_detail"
+            tools:text="@string/deatils_product" />
+
+        <Button
+            android:id="@+id/add_to_basket"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_background"
+            android:backgroundTint="@color/back_text_dark"
+            android:padding="10dp"
+            android:text="@string/addToBasket"
+            android:textSize="13sp"
+            app:layout_constraintTop_toBottomOf="@+id/meal_details"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/line0_end"
+            app:layout_constraintStart_toEndOf="@id/line0_start"
+            app:layout_constraintVertical_bias=".9" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

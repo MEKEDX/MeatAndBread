@@ -37,5 +37,6 @@
     <color name="black">#000000</color>
     <color name="back_text">#A0001E2C</color>
     <color name="delete_color">#9C2424</color>
+    <color name="back_bottom_bar">#A0161C1E</color>
 </resources>
 

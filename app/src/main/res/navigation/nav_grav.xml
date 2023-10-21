@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_grav"
+    app:startDestination="@id/homeF">
+
+    <fragment
+        android:id="@+id/homeF"
+        android:name="com.kh.mo.meatandbread.ui.home.HomeFragment"
+        android:label="HomeFragment" >
+        <action
+            android:id="@+id/action_home_to_mealsFragment"
+            app:destination="@id/mealsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/mealsFragment"
+        android:name="com.kh.mo.meatandbread.ui.meals.MealsFragment"
+        android:label="MealsFragment" >
+        <action
+            android:id="@+id/action_mealsFragment_to_mealFragment"
+            app:destination="@id/mealFragment" />
+        <argument
+            android:name="type"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/mealFragment"
+        android:name="com.kh.mo.meatandbread.ui.meal.MealFragment"
+        android:label="MealFragment" >
+        <argument
+            android:name="meal"
+            app:argType="com.kh.mo.meatandbread.model.Meal" />
+    </fragment>
+    <fragment
+        android:id="@+id/cart"
+        android:name="com.kh.mo.meatandbread.ui.cart.CartFragment"
+        android:label="fragment_cart"
+        tools:layout="@layout/fragment_cart" />
+</navigation>

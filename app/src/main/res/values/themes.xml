@@ -1,5 +1,6 @@
 <resources >
-    <style name="Theme.MeatAndBread" parent="Theme.Material3.Light.NoActionBar">
+    <style name="Theme.MeatAndBread" parent="Theme.Material3.Dark.NoActionBar">
+        <item name="android:fontFamily">@font/messiri</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:windowLightStatusBar">?attr/isLightTheme</item>
         <item name="colorPrimary">@color/md_theme_light_primary</item>
@@ -28,6 +29,60 @@
         <item name="android:textColor">@color/md_theme_light_onSurface</item>
     </style>
 
+
+    <style name="font_style">
+        <item name="android:textSize">@dimen/font_size_30</item>
+        <item name="android:fontFamily">@font/messiri</item>
+    </style>
+
+    <style name="bigTextTheme">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="product_show_line">
+        <item name="android:textSize">12sp</item>
+        <item name="android:background">@color/white</item>
+        <item name="android:layout_height">1dp</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_marginTop">@dimen/margin_4</item>
+    </style>
+    <style name="product_show_arrow">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:src">@drawable/right_arrow</item>
+    </style>
+
+    <style name="product_show_subTitle">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:gravity">start</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_marginTop">@dimen/margin_4</item>
+        <item name="android:fontFamily">@font/messiri</item>
+    </style>
+
+
+    <style name="product_show_title">
+        <item name="android:textSize">21sp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:gravity">start</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:fontFamily">@font/messiri</item>
+        <item name="android:layout_marginTop">@dimen/margin_4</item>
+
+    </style>
+    <style name="product_show_title.smallTitle">
+        <item name="android:textSize">14sp</item>
+        <item name="android:layout_width">wrap_content</item>
+    </style>
 
 
 </resources>

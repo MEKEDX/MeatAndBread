@@ -1,6 +1,8 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
     <style name="Theme.MeatAndBread" parent="Theme.Material3.Dark.NoActionBar">
+
+        <item name="android:fontFamily">@font/messiri</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:windowLightStatusBar">?attr/isLightTheme</item>
 
@@ -31,4 +33,8 @@
         <item name="android:textColor">@color/md_theme_dark_onSurface</item>
     </style>
 
+    <style name="font_style">
+        <item name="android:textSize">@dimen/font_size_30</item>
+        <item name="android:fontFamily">@font/messiri</item>
+    </style>
 </resources>
