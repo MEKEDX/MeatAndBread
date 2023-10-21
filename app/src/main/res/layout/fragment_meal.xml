@@ -5,66 +5,73 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline4"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent=".1" />
-    <ImageView
-        android:id="@+id/meal_image"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/top_c"
         android:layout_width="match_parent"
         android:layout_height="@dimen/height_0"
-        android:elevation="@dimen/elevation_8"
-        tools:src="@drawable/meat3"
-        android:scaleType="fitXY"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginBottom="@dimen/margin_16"
-        />
+        app:layout_constraintBottom_toTopOf="@+id/bottom_c"
+        app:layout_constraintStart_toStartOf="parent">
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline4"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent=".2" />
+        <ImageView
+            android:id="@+id/meal_image"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:elevation="@dimen/elevation_8"
+            tools:src="@drawable/meat3"
+            android:scaleType="fitXY"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginBottom="@dimen/margin_16"
+            />
 
-    <ImageButton
-        android:id="@+id/backButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/margin_8"
-        android:background="@null"
-        android:elevation="@dimen/elevation_8"
-        android:minWidth="48dp"
-        android:minHeight="48dp"
-        android:padding="@dimen/padding_8"
-        app:layout_constraintBottom_toTopOf="@+id/guideline4"
-        app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/arrow_back" />
+        <ImageButton
+            android:id="@+id/back_from_meal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_8"
+            android:background="@drawable/rounded_background"
+            android:elevation="@dimen/elevation_8"
+            android:padding="@dimen/padding_8"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/guideline4"
+            app:layout_constraintStart_toStartOf="parent"
+            app:srcCompat="@drawable/arrow_back" />
 
 
-    <ImageButton
-        android:id="@+id/shareProduct"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/margin_8"
-        android:background="@null"
-        android:elevation="@dimen/margin_8"
-        android:minWidth="48dp"
-        android:minHeight="48dp"
-        android:padding="@dimen/margin_8"
-        android:src="@drawable/share"
-        app:layout_constraintBottom_toTopOf="@+id/guideline4"
-        app:layout_constraintEnd_toEndOf="parent" />
+        <ImageButton
+            android:id="@+id/share_meal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/margin_8"
+            android:background="@drawable/rounded_background"
+            android:elevation="@dimen/margin_8"
+            app:layout_constraintTop_toTopOf="parent"
+            android:padding="@dimen/padding_8"
+            android:src="@drawable/share"
+            app:layout_constraintBottom_toTopOf="@+id/guideline4"
+            app:layout_constraintEnd_toEndOf="parent" />
 
 
 
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout"
+        android:id="@+id/bottom_c"
         android:layout_width="match_parent"
         android:layout_height="@dimen/height_0"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/meal_image">
+        app:layout_constraintTop_toBottomOf="@+id/top_c">
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/line0_end"

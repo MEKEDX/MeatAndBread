@@ -2,7 +2,7 @@
     <string name="app_name">MeatAndBread</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="cat">cat</string>
-    <string name="welcome_back"> مرحبا بعودتك</string>
+    <string name="welcome_back">مرحبا بعودتك   </string>
 
     <string name="pro_meat">لحوم مصنعه</string>
     <string name="meats">لحوم</string>
@@ -52,12 +52,17 @@
     <string name="hwa6">حواوشي جبن مدخنه</string>
     <string name="hwa6Details">الحواوشي الجبن المدخنة هو عبارة عن عجينة عيش محشوة باللحم المفروم والبصل والثوم والتوابل، بالإضافة إلى الجبن المدخنة , يتميز الحواوشي الجبن المدخنة بمذاقه اللذيذ ورائحته الشهية , يستغرق نص ساعة  و خمس دقائق من وقت طلب الطلب.</string>
 
+    <string name="mealQuantityHwa">1 رغيف</string>
+    <string name="mealQuantityMeat">250  جرام</string>
+    <string name="mealQuantityProMeat">500 جرام</string>
+
     <string name="addToBasket">إضافه الي السلة</string>
     <string name="product_detail">تفاصيل المنتج</string>
 
     <string name="nutritionsValue">100جـ</string>
     <string name="deatils_product">الكفتة البلدية هي عبارة عن لحم مفروم مخلوط بالبصل والثوم والتوابل , تتميز الكفتة البلدية بمذاقها اللذيذ وطعمها الغني.</string>
-
+    <string name="shareProduct">السلام عليكم  , \n%1$s المنتج رائع جدا وله سعر رخيص جدا، يكلف فقط %2$.2f$ جنيه يمكنك شرائه الآن باستخدام تطبيق عيش ولحمه.</string>
+    <string name="myCart">سلة المشتريات </string>
 
 
 </resources>
