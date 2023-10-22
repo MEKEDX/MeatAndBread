@@ -19,7 +19,7 @@
 
     />
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycle_of_meals"
+        android:id="@+id/recycle_of_meals_cart"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintStart_toStartOf="parent"
@@ -29,9 +29,40 @@
         android:orientation="vertical"
         android:clipToPadding="false"
         tools:listitem="@layout/item_card"
+        app:layout_constraintBottom_toTopOf="@+id/checkout"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cart_title"
         android:layout_marginBottom="@dimen/margin_16"
         />
+    <Button
+        android:id="@+id/checkout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/button_background"
+        android:backgroundTint="@color/back_text_dark"
+        android:padding="10dp"
+        android:text="@string/gotoCheckOut"
+        android:textColor="@color/white"
+        android:textSize="13sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginHorizontal="@dimen/margin_16"
+        android:layout_marginBottom="@dimen/margin_16"
+    />
+<TextView
+    android:id="@+id/checkout_value"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    tools:text="60"
+    app:drawableStartCompat="@drawable/money"
+    android:textSize="@dimen/font_size_24"
+    android:padding="@dimen/padding_4"
+    android:textColor="@color/white"
+    android:drawablePadding="@dimen/padding_2"
+    android:layout_marginEnd="@dimen/margin_4"
+
+    app:layout_constraintTop_toTopOf="@+id/checkout"
+    app:layout_constraintEnd_toEndOf="@+id/checkout"
+    app:layout_constraintBottom_toBottomOf="@+id/checkout"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
