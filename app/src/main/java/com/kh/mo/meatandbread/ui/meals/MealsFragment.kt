@@ -10,9 +10,8 @@ import android.widget.TextView
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.kh.mo.meatandbread.R
-import com.kh.mo.meatandbread.local.Data
+import com.kh.mo.meatandbread.local.repo.local.Data
 import com.kh.mo.meatandbread.model.Meal
-import com.kh.mo.meatandbread.ui.home.HomeFragmentDirections
 import com.kh.mo.meatandbread.util.closeFragment
 
 

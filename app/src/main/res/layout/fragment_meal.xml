@@ -127,7 +127,7 @@
                 android:src="@drawable/minimize_product" />
 
             <TextView
-                android:id="@+id/productQuantity_EditText"
+                android:id="@+id/meal_quantity_rate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/product_quantity"
@@ -149,14 +149,15 @@
 
         <TextView
             android:id="@+id/meal_price"
+            android:drawablePadding="@dimen/padding_2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:theme="@style/bigTextTheme"
             app:drawableStartCompat="@drawable/money"
+            android:textSize="@dimen/font_size_24"
             app:layout_constraintBottom_toBottomOf="@+id/productQuantityContainer"
-           app:layout_constraintStart_toEndOf="@+id/line0_start"
+            app:layout_constraintStart_toEndOf="@+id/line0_start"
             app:layout_constraintTop_toTopOf="@+id/productQuantityContainer"
-            android:drawablePadding="@dimen/padding_2"
             tools:text="5" />
 
 
