@@ -4,15 +4,25 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="130dp"
-
+    tools:backgroundTint="@color/back_text"
     android:layout_marginVertical="@dimen/margin_6"
-    tools:backgroundTint="@color/black"
+    android:backgroundTint="?attr/backgroundColor"
     app:cardCornerRadius="@dimen/radius_12">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <ImageView
+            android:id="@+id/cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:scaleType="centerCrop"
+            android:src="@drawable/cancel"
+            app:layout_constraintEnd_toEndOf="parent"
+       android:layout_marginEnd="@dimen/margin_16"
+            android:layout_marginTop="@dimen/margin_8"
+            app:layout_constraintTop_toTopOf="parent"/>
         <ImageView
             android:id="@+id/image_meal_cart"
             android:layout_width="@dimen/width_158"
@@ -26,7 +36,7 @@
 
             />
         <TextView
-            android:id="@+id/meal_name"
+            android:id="@+id/meal_name_cart"
             style="@style/product_show_title"
             android:layout_width="wrap_content"
             app:layout_constraintVertical_bias=".1"
@@ -37,67 +47,70 @@
             tools:text="حواشي بلدي" />
 
         <TextView
-            android:id="@+id/meal_quantity"
+            android:id="@+id/meal_quantity_cart"
             style="@style/product_show_subTitle"
             tools:text="1 كيلو جرام"
             android:layout_marginStart="@dimen/margin_16"
             app:layout_constraintStart_toEndOf="@+id/image_meal_cart"
-            app:layout_constraintTop_toBottomOf="@+id/meal_name" />
+            app:layout_constraintTop_toBottomOf="@+id/meal_name_cart" />
+
         <LinearLayout
-            android:id="@+id/productQuantityContainer"
+            android:id="@+id/productQuantityContainer_cart"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/radius_16"
             android:layout_marginTop="@dimen/margin_16"
             android:layout_marginBottom="@dimen/radius_16"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginStart="@dimen/radius_16"
             android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/meal_quantity_cart"
+            app:layout_constraintHorizontal_bias=".1"
             app:layout_constraintStart_toEndOf="@+id/image_meal_cart"
-            app:layout_constraintTop_toBottomOf="@+id/meal_quantity">
+            app:layout_constraintTop_toBottomOf="@+id/meal_quantity_cart">
 
             <ImageView
-                android:id="@+id/productQuantityMinus"
+                android:id="@+id/productQuantityMinus_cart"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-
                 android:layout_gravity="center"
-                android:layout_marginEnd="@dimen/margin_16"
+                android:layout_marginEnd="@dimen/padding_4"
                 android:paddingBottom="10dp"
                 android:src="@drawable/minimize_product" />
 
             <TextView
-                android:id="@+id/productQuantity_EditText"
-                android:layout_width="wrap_content"
+                android:id="@+id/productQuantity_EditText_cart"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/product_quantity"
                 android:gravity="center"
                 android:maxLines="1"
 
                 android:padding="@dimen/padding_8"
-                tools:text="5000"
                 android:textColor="@color/white"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                tools:text="5000" />
 
             <ImageView
-                android:id="@+id/productQuantityPlus"
+                android:id="@+id/productQuantityPlus_cart"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginStart="@dimen/margin_16"
+                android:layout_marginStart="@dimen/margin_4"
                 android:src="@drawable/add_product" />
         </LinearLayout>
 
         <TextView
-            android:id="@+id/meal_price"
+            android:id="@+id/meal_price_cart"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/radius_16"
+            android:drawablePadding="@dimen/padding_2"
             android:theme="@style/bigTextTheme"
             app:drawableStartCompat="@drawable/money"
-            app:layout_constraintBottom_toBottomOf="@+id/productQuantityContainer"
+            app:layout_constraintBottom_toBottomOf="@+id/productQuantityContainer_cart"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginEnd="@dimen/radius_16"
-            app:layout_constraintTop_toTopOf="@+id/productQuantityContainer"
-            android:drawablePadding="@dimen/padding_2"
+            app:layout_constraintHorizontal_bias=".1"
+            app:layout_constraintTop_toTopOf="@+id/productQuantityContainer_cart"
             tools:text="5" />
 
 

@@ -63,6 +63,7 @@
     <string name="deatils_product">الكفتة البلدية هي عبارة عن لحم مفروم مخلوط بالبصل والثوم والتوابل , تتميز الكفتة البلدية بمذاقها اللذيذ وطعمها الغني.</string>
     <string name="shareProduct">السلام عليكم  , \n%1$s المنتج رائع جدا وله سعر رخيص جدا، يكلف فقط %2$.2f$ جنيه يمكنك شرائه الآن باستخدام تطبيق عيش ولحمه.</string>
     <string name="myCart">سلة المشتريات </string>
+    <string name="gotoCheckOut">إرسال</string>
 
 
 </resources>
