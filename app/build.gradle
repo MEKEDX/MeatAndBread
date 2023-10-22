@@ -3,6 +3,7 @@ plugins {
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-parcelize'
     id "androidx.navigation.safeargs.kotlin"
+    id 'kotlin-kapt'
 
 }
 
@@ -69,5 +70,12 @@ dependencies {
     implementation("androidx.navigation:navigation-ui-ktx:$nav_version")
     //SmoothBottomBar
     implementation 'com.github.ibrahimsn98:SmoothBottomBar:1.7.9'
+    //Room
+    implementation "androidx.room:room-runtime:2.5.2"
+    kapt "androidx.room:room-compiler:2.5.2"
+    implementation "androidx.room:room-ktx:2.5.2"
+    testImplementation "androidx.room:room-testing:2.5.2"
 
+    //Json converter
+    implementation 'com.google.code.gson:gson:2.10'
 }
