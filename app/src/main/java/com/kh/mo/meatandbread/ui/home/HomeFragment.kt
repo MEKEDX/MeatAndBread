@@ -13,7 +13,7 @@ class HomeFragment : Fragment() {
 
     private lateinit var hawawshi: CardView
     private lateinit var meat: CardView
-    private lateinit var processed_meat: CardView
+    private lateinit var processedMeat: CardView
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -24,7 +24,7 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         hawawshi=view.findViewById(R.id.hawawshi)
         meat=view.findViewById(R.id.meat)
-        processed_meat=view.findViewById(R.id.processed_meat)
+        processedMeat=view.findViewById(R.id.processed_meat)
         setUp()
     }
 
@@ -38,7 +38,7 @@ class HomeFragment : Fragment() {
             findNavController().navigate(HomeFragmentDirections.
             actionHomeToMealsFragment(getString(R.string.meats)))
         }
-        processed_meat.setOnClickListener{
+        processedMeat.setOnClickListener{
             findNavController().navigate(HomeFragmentDirections.
             actionHomeToMealsFragment(getString(R.string.pro_meat)))
         }
