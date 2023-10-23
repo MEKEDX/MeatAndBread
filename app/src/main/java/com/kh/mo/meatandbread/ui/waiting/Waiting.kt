@@ -74,6 +74,7 @@ class Waiting : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         progressBar = view.findViewById(R.id.progress_count_down)
         countDownTextView = view.findViewById(R.id.count_down_txt_view)
+        progressBar.max = time.toInt()
 
 
 
@@ -99,9 +100,10 @@ class Waiting : Fragment() {
             time =  intent.getDoubleExtra(TimerService.TIME_EXTRA, 0.0)
             if(time>0) {
                 countDownTextView.text = getTimerStringFromDouble(time)
+                progressBar.progress = progressBar.max - time.roundToInt()
             }else{
                 countDownTextView.text = getTimerStringFromDouble(0.0)
-
+                progressBar.progress = 0
                 stopTimer()
                 showNotification()
 
