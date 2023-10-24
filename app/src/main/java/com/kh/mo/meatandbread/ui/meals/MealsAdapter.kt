@@ -12,7 +12,7 @@ import com.kh.mo.meatandbread.model.Meal
 
 class MealsAdapter(private val context: Context?,
                    private val meals: List<Meal>,
-                   private val onClickListener: OnClickListener)
+                   private val onClickListener:(position: Int)->Unit)
     : RecyclerView.Adapter<MealsAdapter.MealViewHolder>() {
 
 
@@ -27,7 +27,7 @@ class MealsAdapter(private val context: Context?,
         holder.imageOfMeal.setImageResource(meal.image)
         holder.textOfMeal.text = meal.name
         holder.itemView.setOnClickListener{
-            onClickListener.clickMeal(position)
+            onClickListener(position)
         }
     }
 

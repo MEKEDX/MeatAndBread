@@ -15,7 +15,7 @@ import com.kh.mo.meatandbread.model.Meal
 import com.kh.mo.meatandbread.util.closeFragment
 
 
-class MealsFragment : Fragment(), OnClickListener {
+class MealsFragment : Fragment() {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var backButton: ImageView
@@ -49,7 +49,7 @@ class MealsFragment : Fragment(), OnClickListener {
                 data.listOfProcessedMeat
             }
         }
-        recyclerView.adapter = MealsAdapter(context, meals, this)
+        recyclerView.adapter = MealsAdapter(context, meals,::clickMeal )
     }
 
     private fun setUp() {
@@ -57,7 +57,7 @@ class MealsFragment : Fragment(), OnClickListener {
         title.text = " اصناف $type"
     }
 
-    override fun clickMeal(position: Int) {
+     private fun clickMeal(position: Int) {
         findNavController().navigate(
             MealsFragmentDirections.actionMealsFragmentToMealFragment(meals[position])
         )
