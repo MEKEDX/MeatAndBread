@@ -6,26 +6,26 @@ import com.kh.mo.meatandbread.util.Constants
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
 
-class CartPresenter  (
+class CartPresenter(
     private val repository: Repository,
     private val cartFragmentView: CartFragmentView
-) :CartPresenterView {
-     private fun updateMeal(meal: Meal) {
+) : CartPresenterView {
+    private fun updateMeal(meal: Meal) {
         repository.updateMeal(meal).subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({ cartFragmentView.updateDone()}, {})
+            .subscribe({ cartFragmentView.updateDone() }, {})
     }
 
     override fun getAllMeals() {
-      repository.getAllMeals().subscribeOn(Schedulers.io())
-          .observeOn(AndroidSchedulers.mainThread())
-          .subscribe({ cartFragmentView.getMeals(it) }, {})
+        repository.getAllMeals().subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({ cartFragmentView.getMeals(it) }, {})
     }
 
     override fun deleteMeal(meal: Meal) {
-       repository.deleteMeal(meal).subscribeOn(Schedulers.io())
-           .observeOn(AndroidSchedulers.mainThread())
-           .subscribe({ cartFragmentView.deleteDone() }, {})
+        repository.deleteMeal(meal).subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({ cartFragmentView.deleteDone() }, {})
     }
 
     override fun getTotalPrice() {

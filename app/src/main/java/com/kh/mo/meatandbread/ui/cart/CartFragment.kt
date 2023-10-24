@@ -8,16 +8,16 @@ import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.RecyclerView
 import com.kh.mo.meatandbread.R
 import com.kh.mo.meatandbread.local.repo.RepositoryIm
 import com.kh.mo.meatandbread.local.repo.local.LocalSource
 import com.kh.mo.meatandbread.model.Meal
-import com.kh.mo.meatandbread.util.Constants
 
 class CartFragment : Fragment(), OnClickListenerCart, CartFragmentView {
     private lateinit var recyclerView: RecyclerView
-    private lateinit var meals: ArrayList<Meal>
+    private lateinit var meals: List<Meal>
     private lateinit var cartPresenter: CartPresenter
     private lateinit var cartPresenterView: CartPresenterView
     private lateinit var cartAdapter: CartAdapter
@@ -46,8 +46,9 @@ class CartFragment : Fragment(), OnClickListenerCart, CartFragmentView {
     private fun setUp(){
         checkoutValue.text="0"
         meals = arrayListOf()
-        cartAdapter = CartAdapter(context, meals, this)
+        cartAdapter = CartAdapter(this)
         recyclerView.adapter = cartAdapter
+        recyclerView.itemAnimator = DefaultItemAnimator()
         cartPresenter = CartPresenter(
             RepositoryIm(LocalSource.getInstance(requireContext())),
             this
@@ -63,29 +64,29 @@ class CartFragment : Fragment(), OnClickListenerCart, CartFragmentView {
     }
 
     override fun clickPlus(
-        position: Int,
+        meal: Meal,
         mealQuantityValue: Int,
         mealPrice: Int
     ) {
         cartPresenterView.clickPlus(
-            meals[position], mealQuantityValue, mealPrice,"+"
+            meal, mealQuantityValue, mealPrice,"+"
         ) { n1: Int, n2: Int -> n1 + n2 }
     }
 
-    override fun clickMinus(position: Int, mealQuantityValue: Int, mealPrice:Int) {
+    override fun clickMinus(meal: Meal, mealQuantityValue: Int, mealPrice:Int) {
         cartPresenterView.clickMinus(
-            meals[position], mealQuantityValue, mealPrice,"-"
+           meal, mealQuantityValue, mealPrice,"-"
         ) { n1: Int, n2: Int -> n1 - n2 }
 
     }
 
-    override fun cancel(position: Int) {
-        cartPresenterView.deleteMeal(meals[position])
+    override fun deleteMeal(meal: Meal) {
+        cartPresenterView.deleteMeal(meal)
     }
 
     override fun getMeals(meals: List<Meal>) {
-        this.meals = meals as ArrayList<Meal>
-        cartAdapter.updateData(meals)
+        this.meals = meals
+        cartAdapter.submitList(meals)
     }
 
 
