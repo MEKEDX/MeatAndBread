@@ -18,7 +18,7 @@ class TimerService : Service() {
 
         val time = intent.getDoubleExtra(TIME_EXTRA , 0.0)
         timer.scheduleAtFixedRate(TimeTask(time), 0 ,1000)
-        notify(Waiting.getTimerStringFromDouble(time))
+       // notify(Waiting.getTimerStringFromDouble(time))
         return START_STICKY
     }
 
@@ -43,7 +43,7 @@ class TimerService : Service() {
         const val TIME_EXTRA ="timeExtra"
     }
     fun notify(time:String){
-        val notification  = NotificationCompat.Builder(this ,  Waiting.CHANNEL_ID)
+        val notification  = NotificationCompat.Builder(this ,  WaitingFragment.CHANNEL_ID)
             .setSmallIcon(R.drawable.notification)
             .setContentTitle("Timer is running")
             .setContentText("Elapsed time : $time")

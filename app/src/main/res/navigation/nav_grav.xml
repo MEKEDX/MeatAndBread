@@ -44,7 +44,7 @@
         tools:layout="@layout/fragment_cart" />
     <fragment
         android:id="@+id/waiting"
-        android:name="com.kh.mo.meatandbread.ui.waiting.Waiting"
+        android:name="com.kh.mo.meatandbread.ui.waiting.WaitingFragment"
         android:label="fragment_waiting"
         tools:layout="@layout/fragment_waiting" />
 </navigation>
