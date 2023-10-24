@@ -12,7 +12,7 @@
         android:icon="@drawable/cart"/>
 
     <item
-        android:id="@+id/time"
+        android:id="@+id/waiting"
         android:title="Time"
         android:icon="@drawable/time"/>
 

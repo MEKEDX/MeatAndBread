@@ -1,5 +1,6 @@
 package com.kh.mo.meatandbread
 
+import android.content.Context
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.PopupMenu
@@ -42,7 +43,8 @@ class MainActivity : AppCompatActivity() {
                                                      _: Bundle? ->
             val destinationId = destination.id
             if (destinationId == R.id.homeF ||
-                destinationId == R.id.cart
+                destinationId == R.id.cart||
+                destinationId== R.id.waiting
             ) {
                 bottomBar.makeVisible()
             } else {
@@ -50,5 +52,13 @@ class MainActivity : AppCompatActivity() {
 
             }
         }
+    }
+
+    override fun onDestroy() {
+        val sharedPreference = getSharedPreferences("PREFERENCE_NAME" , Context.MODE_PRIVATE)
+        var editor = sharedPreference.edit()
+        editor.putString("time",null)
+        editor.commit()
+        super.onDestroy()
     }
 }
