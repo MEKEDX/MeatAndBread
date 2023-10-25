@@ -27,22 +27,17 @@ class RepositoryIm(private val localSource: LocalSource) : Repository {
         return localSource.mealDao.mealDao().getTotalPrice()
     }
 
-    override fun getHawawshi(): List<Meal> {
-        return localSource.data.listOfHawawshi
-    }
-
-    override fun getMeat(): List<Meal> {
-        return localSource.data.listOfMeat
-    }
-
-
-    override fun getProcessedMeat(): List<Meal> {
-        return localSource.data.listOfProcessedMeat
-    }
-
-
-
     override fun getMeal(id: Int): Single<Meal> {
         return localSource.mealDao.mealDao().getPlanedMeal(id)
     }
+
+    override fun getMeals(type:String): List<Meal> {
+      return  localSource.getMeals(type)
+    }
+
+
+
+
+
+
 }

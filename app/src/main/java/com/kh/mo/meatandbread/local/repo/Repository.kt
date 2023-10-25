@@ -12,9 +12,7 @@ interface Repository {
     fun deleteMeal(meal: Meal): Completable
     fun getMeal(id: Int): Single<Meal>
 
-    fun getHawawshi(): List<Meal>
-    fun getMeat(): List<Meal>
-    fun getProcessedMeat(): List<Meal>
+    fun getMeals(type:String): List<Meal>
     fun getTotalPrice(): Observable<Int>
 
 }
