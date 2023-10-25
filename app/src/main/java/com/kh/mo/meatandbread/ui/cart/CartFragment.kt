@@ -14,6 +14,8 @@ import com.kh.mo.meatandbread.R
 import com.kh.mo.meatandbread.local.repo.RepositoryIm
 import com.kh.mo.meatandbread.local.repo.local.LocalSource
 import com.kh.mo.meatandbread.model.Meal
+import com.kh.mo.meatandbread.util.makeGone
+import com.kh.mo.meatandbread.util.makeVisible
 
 class CartFragment : Fragment(), OnClickListenerCart, CartFragmentView {
     private lateinit var recyclerView: RecyclerView
@@ -57,9 +59,9 @@ class CartFragment : Fragment(), OnClickListenerCart, CartFragmentView {
         cartPresenterView.getAllMeals()
         cartPresenterView.getTotalPrice()
     }
-    override fun clickCartMeal(position: Int) {
+    override fun clickCartMeal(meal: Meal) {
         findNavController().navigate(
-            CartFragmentDirections.actionCartToMealFragment(meals[position])
+            CartFragmentDirections.actionCartToMealFragment(meal)
         )
     }
 
@@ -85,6 +87,7 @@ class CartFragment : Fragment(), OnClickListenerCart, CartFragmentView {
     }
 
     override fun getMeals(meals: List<Meal>) {
+        Toast.makeText(requireActivity(), "${meals.size}", Toast.LENGTH_SHORT).show()
         this.meals = meals
         cartAdapter.submitList(meals)
     }
@@ -100,7 +103,12 @@ class CartFragment : Fragment(), OnClickListenerCart, CartFragmentView {
     }
 
     override fun getTotalPrice(totalPrice: Int) {
+    if(totalPrice!=0){
+        checkoutValue.makeVisible()
         checkoutValue.text=totalPrice.toString()
+    }else{
+        checkoutValue.makeGone()
+    }
     }
 
 }

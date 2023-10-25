@@ -46,7 +46,7 @@ class CartAdapter(
         holder.priceCart.text = meal.price.toString()
 
         holder.itemView.setOnClickListener {
-            onClickListenerCart.clickCartMeal(position)
+            onClickListenerCart.clickCartMeal(meal)
         }
     }
 

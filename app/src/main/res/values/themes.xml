@@ -1,46 +1,46 @@
 <resources >
     <style name="Theme.MeatAndBread" parent="Theme.Material3.Dark.NoActionBar">
+
         <item name="android:fontFamily">@font/messiri</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:windowLightStatusBar">?attr/isLightTheme</item>
-        <item name="colorPrimary">@color/md_theme_light_primary</item>
-        <item name="colorOnPrimary">@color/md_theme_light_onPrimary</item>
-        <item name="colorPrimaryContainer">@color/md_theme_light_primaryContainer</item>
-        <item name="colorOnPrimaryContainer">@color/md_theme_light_onPrimaryContainer</item>
 
-        <item name="colorSecondary">@color/md_theme_light_secondary</item>
-        <item name="colorOnSecondary">@color/md_theme_light_onSecondary</item>
-        <item name="colorSecondaryContainer">@color/md_theme_light_secondaryContainer</item>
-        <item name="colorOnSecondaryContainer">@color/md_theme_light_onSecondaryContainer</item>
-        <!--        <item name="android:drawableTint">@color/md_theme_light_onBackground_opacity</item>-->
-        <item name="backgroundColor">@color/md_theme_light_background</item>
-        <item name="colorAccent">@color/back_text_light</item>
+        <item name="colorPrimary">@color/md_theme_dark_primary</item>
+        <item name="colorPrimaryContainer">@color/md_theme_dark_primaryContainer</item>
+        <item name="colorOnPrimary">@color/md_theme_dark_onPrimary</item>
+        <item name="colorOnPrimaryContainer">@color/md_theme_dark_onPrimaryContainer</item>
+        <item name="colorSecondary">@color/md_theme_dark_secondary</item>
+        <item name="colorSecondaryContainer">@color/md_theme_dark_secondaryContainer</item>
+        <item name="colorOnSecondary">@color/md_theme_dark_onSecondary</item>
+        <item name="colorOnSecondaryContainer">@color/md_theme_dark_onSecondaryContainer</item>
+        <!--        <item name="android:drawableTint">@color/md_theme_dark_onBackground_opacity</item>-->
+        <item name="colorAccent">@color/back_text_dark</item>
+
+        <item name="backgroundColor">@color/md_theme_dark_background</item>
 
     </style>
 
-    <style name="Theme.splashScreenTheme" parent="Theme.SplashScreen">
-        <item name="windowSplashScreenAnimatedIcon">@drawable/splash_screen_light_mode</item>
-        <item name="windowSplashScreenBackground">@color/md_theme_light_primary</item>
+    <style name="splashScreenTheme" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenAnimatedIcon">@drawable/splash_screen_dark_mode</item>
+        <item name="windowSplashScreenBackground">@color/md_theme_dark_primary</item>
         <item name="postSplashScreenTheme">@style/Theme.MeatAndBread</item>
     </style>
-    <style name="SearchBarStyle" parent="@style/Widget.Material3.SearchBar">
-        <item name="android:background">@drawable/search_bar_background_light</item>
-        <item name="android:elevation">6dp</item>
-        <item name="android:textColor">@color/md_theme_light_onSurface</item>
-    </style>
 
+    <style name="SearchBarStyle" parent="@style/Widget.Material3.SearchBar">
+        <item name="android:background">@drawable/search_bar_background_dark</item>
+        <item name="android:elevation">6dp</item>
+        <item name="android:textColor">@color/md_theme_dark_onSurface</item>
+    </style>
 
     <style name="font_style">
         <item name="android:textSize">@dimen/font_size_30</item>
         <item name="android:fontFamily">@font/messiri</item>
     </style>
-
     <style name="bigTextTheme">
         <item name="android:textSize">18sp</item>
         <item name="android:textColor">@color/white</item>
         <item name="android:textStyle">bold</item>
     </style>
-
     <style name="product_show_line">
         <item name="android:textSize">12sp</item>
         <item name="android:background">@color/white</item>
@@ -53,7 +53,6 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:src">@drawable/right_arrow</item>
     </style>
-
     <style name="product_show_subTitle">
         <item name="android:textSize">12sp</item>
         <item name="android:textColor">@color/white</item>
@@ -65,8 +64,6 @@
         <item name="android:layout_marginTop">@dimen/margin_4</item>
         <item name="android:fontFamily">@font/messiri</item>
     </style>
-
-
     <style name="product_show_title">
         <item name="android:textSize">21sp</item>
         <item name="android:textColor">@color/white</item>
