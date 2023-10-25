@@ -25,7 +25,7 @@ interface MealsDao {
     @Query("SELECT * FROM MEALS_TABLE WHERE id LIKE :id")
     fun getPlanedMeal(id: Int): Single<Meal>
 
-    @Query("SELECT SUM(price) FROM MEALS_TABLE")
+    @Query("SELECT COALESCE(SUM(price), 0) FROM MEALS_TABLE")
     fun getTotalPrice(): Observable<Int>
 
 }

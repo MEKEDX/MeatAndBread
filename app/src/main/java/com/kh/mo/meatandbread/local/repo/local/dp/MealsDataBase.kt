@@ -13,14 +13,14 @@ import com.kh.mo.meatandbread.model.Meal
     companion object {
 
         @Volatile private var instanse: MealsDataBase? = null
-        fun getInstance(context: Context): MealsDataBase {
+        fun getInstance(context: Context?): MealsDataBase {
             return instanse ?: synchronized(this) {
                 buildDataBase(context).also {instanse=it  }
             }
         }
-        private fun buildDataBase(context: Context): MealsDataBase{
+        private fun buildDataBase(context: Context?): MealsDataBase{
            return Room.databaseBuilder(
-                context.applicationContext,
+                context?.applicationContext!!,
                 MealsDataBase::class.java,
                 "MEAL_DATABASE"
             ).build()

@@ -7,21 +7,21 @@ import io.reactivex.rxjava3.schedulers.Schedulers
 
 class MealPresenter(
     private val repository: Repository,
-    private val mealFragmentView: MealFragmentView
+    private val mealView: MealView
 ) : MealPresenterView {
 
 
     override fun getMeal(id: Int) {
         repository.getMeal(id).subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({ mealFragmentView.getMeal(it) }, {})
+            .subscribe({ mealView.getMeal(it) }, {})
     }
 
     override fun saveMeal(meal: Meal) {
         repository.insertMeal(meal).subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
-                mealFragmentView.savedDone()
+                mealView.savedDone()
             }, {})
     }
 

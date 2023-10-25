@@ -17,10 +17,12 @@ import com.kh.mo.meatandbread.local.repo.local.LocalSource
 import com.kh.mo.meatandbread.model.Meal
 import com.kh.mo.meatandbread.util.Constants
 import com.kh.mo.meatandbread.util.closeFragment
+import com.kh.mo.meatandbread.util.convertToArabicFormat
+import com.kh.mo.meatandbread.util.convertToEnglishFormat
 import kotlin.properties.Delegates
 
 
-class MealFragment : Fragment(), MealFragmentView {
+class MealFragment : Fragment(), MealView {
 
     private lateinit var mealImage: ImageView
     private lateinit var backButton: ImageView
@@ -75,7 +77,6 @@ class MealFragment : Fragment(), MealFragmentView {
 
     private fun receiveData() {
         mainMeal = MealFragmentArgs.fromBundle(requireArguments()).meal
-
         attachData(mainMeal)
         mealPresenterView.getMeal(mainMeal.id)
 
@@ -85,8 +86,8 @@ class MealFragment : Fragment(), MealFragmentView {
         addToBasket.setOnClickListener {
             mealPresenterView.saveMeal(
                 mainMeal.copy(
-                    price = mealPrice.text.toString().toInt(),
-                    mealQuantityValue =  mealQuantityValue.text.toString().toInt()
+                    price = mealPrice.text.toString().convertToEnglishFormat(),
+                    mealQuantityValue =  mealQuantityValue.text.toString().convertToEnglishFormat()
                 )
             )
         }
@@ -103,8 +104,8 @@ class MealFragment : Fragment(), MealFragmentView {
         mealName.text = meal.name
         mealQuantity.text = meal.mealQuantity
         mealDetails.text = meal.mealDetail
-        mealQuantityValue.text = meal.mealQuantityValue.toString()
-        mealPrice.text = meal.price.toString()
+        mealQuantityValue.text = meal.mealQuantityValue.convertToArabicFormat()
+        mealPrice.text = meal.price.convertToArabicFormat()
 
 
 
@@ -120,11 +121,11 @@ class MealFragment : Fragment(), MealFragmentView {
         mealQuantityMinus.setOnClickListener {
             var tempR=0
             var tempP=0
-            if (mealQuantityValue.text.toString().toInt()  != minLimit) {
-                tempR=mealQuantityValue.text.toString().toInt()-rate
-                tempP=mealPrice.text.toString().toInt()-price
-                mealQuantityValue.text = tempR.toString()
-                mealPrice.text = tempP.toString()
+            if (mealQuantityValue.text.toString().convertToEnglishFormat()  != minLimit) {
+                tempR= mealQuantityValue.text.toString().convertToEnglishFormat() -rate
+                tempP= mealPrice.text.toString().convertToEnglishFormat() -price
+                mealQuantityValue.text = tempR.convertToArabicFormat()
+                mealPrice.text = tempP.convertToArabicFormat()
 
 
             }
@@ -132,11 +133,11 @@ class MealFragment : Fragment(), MealFragmentView {
         mealQuantityPlus.setOnClickListener {
             var tempR=0
             var tempP=0
-            if (mealQuantityValue.text.toString().toInt() < maxLimit) {
-                tempR=rate+mealQuantityValue.text.toString().toInt()
-                tempP=price+mealPrice.text.toString().toInt()
-                mealQuantityValue.text = tempR.toString()
-                mealPrice.text = tempP.toString()
+            if (mealQuantityValue.text.toString().convertToEnglishFormat()   < maxLimit) {
+                tempR=rate+ mealQuantityValue.text.toString().convertToEnglishFormat()
+                tempP=price+ mealPrice.text.toString().convertToEnglishFormat()
+                mealQuantityValue.text = tempR.convertToArabicFormat()
+                mealPrice.text = tempP.convertToArabicFormat()
             }
         }
     }
@@ -147,7 +148,7 @@ class MealFragment : Fragment(), MealFragmentView {
             getString(
                 R.string.shareProduct,
                 mainMeal.name,
-                mainMeal.price.toDouble()
+                mainMeal.price.convertToArabicFormat()
             )
         intent.type = "text/plain"
         intent.putExtra(Intent.EXTRA_TEXT, shareBody)
