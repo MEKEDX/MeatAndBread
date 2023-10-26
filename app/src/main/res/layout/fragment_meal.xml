@@ -151,7 +151,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginStart="@dimen/margin_16"
-                android:src="@drawable/add_product" />
+                android:src="@drawable/add_cart_screen" />
         </LinearLayout>
 
         <TextView

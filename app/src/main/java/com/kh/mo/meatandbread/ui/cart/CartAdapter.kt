@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.kh.mo.meatandbread.R
 import com.kh.mo.meatandbread.model.Meal
+import com.kh.mo.meatandbread.util.convertToArabicFormat
 
 class CartAdapter(
     private val onClickListenerCart: OnClickListenerCart
@@ -41,9 +42,9 @@ class CartAdapter(
 
         }
         holder.nameCart.text = meal.name
-        holder.quantityCartRate.text = meal.mealQuantityValue.toString()
+        holder.quantityCartRate.text = meal.mealQuantityValue.convertToArabicFormat()
         holder.quantityCart.text = meal.mealQuantity
-        holder.priceCart.text = meal.price.toString()
+        holder.priceCart.text = meal.price.convertToArabicFormat()
 
         holder.itemView.setOnClickListener {
             onClickListenerCart.clickCartMeal(meal)

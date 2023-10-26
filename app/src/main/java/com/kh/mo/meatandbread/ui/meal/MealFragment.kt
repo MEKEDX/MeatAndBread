@@ -11,6 +11,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.airbnb.lottie.LottieAnimationView
 import com.kh.mo.meatandbread.R
 import com.kh.mo.meatandbread.local.repo.RepositoryIm
 import com.kh.mo.meatandbread.local.repo.local.LocalSource
@@ -42,8 +43,7 @@ class MealFragment : Fragment(), MealView {
     private var price by Delegates.notNull<Int>()
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
         return inflater.inflate(R.layout.fragment_meal, container, false)
     }
@@ -70,8 +70,7 @@ class MealFragment : Fragment(), MealView {
         mealPrice = view.findViewById(R.id.meal_price)
         mealDetails = view.findViewById(R.id.meal_details)
         addToBasket = view.findViewById(R.id.add_to_basket)
-        mealPresenter =
-            MealPresenter(RepositoryIm(LocalSource.getInstance(requireContext())), this)
+        mealPresenter = MealPresenter(RepositoryIm(LocalSource.getInstance(requireContext())), this)
         mealPresenterView = mealPresenter
     }
 
@@ -82,17 +81,18 @@ class MealFragment : Fragment(), MealView {
 
     }
 
-    private fun addDataToBasket(){
+    private fun addDataToBasket() {
         addToBasket.setOnClickListener {
             mealPresenterView.saveMeal(
                 mainMeal.copy(
                     price = mealPrice.text.toString().convertToEnglishFormat(),
-                    mealQuantityValue =  mealQuantityValue.text.toString().convertToEnglishFormat()
+                    mealQuantityValue = mealQuantityValue.text.toString().convertToEnglishFormat()
                 )
             )
         }
     }
-    private fun setUp(){
+
+    private fun setUp() {
         backButton.setOnClickListener { closeFragment() }
         shareMeal.setOnClickListener { shareProduct() }
     }
@@ -108,7 +108,6 @@ class MealFragment : Fragment(), MealView {
         mealPrice.text = meal.price.convertToArabicFormat()
 
 
-
     }
 
     private fun putLimitOfQuantity() {
@@ -119,23 +118,19 @@ class MealFragment : Fragment(), MealView {
         )
         val (minLimit, maxLimit) = rateLimits[mainMeal.typeofMeal] ?: Pair(0, 0)
         mealQuantityMinus.setOnClickListener {
-            var tempR=0
-            var tempP=0
-            if (mealQuantityValue.text.toString().convertToEnglishFormat()  != minLimit) {
-                tempR= mealQuantityValue.text.toString().convertToEnglishFormat() -rate
-                tempP= mealPrice.text.toString().convertToEnglishFormat() -price
-                mealQuantityValue.text = tempR.convertToArabicFormat()
-                mealPrice.text = tempP.convertToArabicFormat()
+            if (mealQuantityValue.text.toString().convertToEnglishFormat() != minLimit) {
+                val tempP = mealQuantityValue.text.toString().convertToEnglishFormat() - rate
+                val tempR = mealPrice.text.toString().convertToEnglishFormat() - price
+                mealQuantityValue.text = tempP.convertToArabicFormat()
+                mealPrice.text = tempR.convertToArabicFormat()
 
 
             }
         }
         mealQuantityPlus.setOnClickListener {
-            var tempR=0
-            var tempP=0
-            if (mealQuantityValue.text.toString().convertToEnglishFormat()   < maxLimit) {
-                tempR=rate+ mealQuantityValue.text.toString().convertToEnglishFormat()
-                tempP=price+ mealPrice.text.toString().convertToEnglishFormat()
+            if (mealQuantityValue.text.toString().convertToEnglishFormat() < maxLimit) {
+                val tempR = rate + mealQuantityValue.text.toString().convertToEnglishFormat()
+                val tempP = price + mealPrice.text.toString().convertToEnglishFormat()
                 mealQuantityValue.text = tempR.convertToArabicFormat()
                 mealPrice.text = tempP.convertToArabicFormat()
             }
@@ -144,12 +139,9 @@ class MealFragment : Fragment(), MealView {
 
     private fun shareProduct() {
         val intent = Intent(Intent.ACTION_SEND)
-        val shareBody =
-            getString(
-                R.string.shareProduct,
-                mainMeal.name,
-                mainMeal.price.convertToArabicFormat()
-            )
+        val shareBody = getString(
+            R.string.shareProduct, mainMeal.name, mainMeal.price.convertToArabicFormat()
+        )
         intent.type = "text/plain"
         intent.putExtra(Intent.EXTRA_TEXT, shareBody)
         startActivity(intent)
@@ -160,7 +152,7 @@ class MealFragment : Fragment(), MealView {
     }
 
     override fun savedDone() {
-        Toast.makeText(requireActivity(), " تمت الإضافه الي المشتريات", Toast.LENGTH_SHORT).show()
+        Toast.makeText(requireContext(), " تمت الإضافه الي المشتريات", Toast.LENGTH_SHORT).show()
     }
 
 }

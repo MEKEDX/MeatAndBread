@@ -84,7 +84,7 @@ class WaitingFragment : Fragment() {
                 countDownTextView.text = getTimerStringFromDouble(0.0)
                 progressBar.progress = 0
                 stopTimer()
-                showNotification()
+          //      showNotification()
 
 
             }

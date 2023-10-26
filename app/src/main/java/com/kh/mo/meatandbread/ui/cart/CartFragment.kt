@@ -1,29 +1,33 @@
 package com.kh.mo.meatandbread.ui.cart
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.view.size
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.RecyclerView
+import com.airbnb.lottie.LottieAnimationView
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.kh.mo.meatandbread.R
 import com.kh.mo.meatandbread.local.repo.RepositoryIm
 import com.kh.mo.meatandbread.local.repo.local.LocalSource
 import com.kh.mo.meatandbread.model.Meal
+import com.kh.mo.meatandbread.util.convertToArabicFormat
 import com.kh.mo.meatandbread.util.makeGone
 import com.kh.mo.meatandbread.util.makeVisible
 
 class CartFragment : Fragment(), OnClickListenerCart, CartFragmentView {
     private lateinit var recyclerView: RecyclerView
-    private lateinit var meals: List<Meal>
     private lateinit var cartPresenter: CartPresenter
     private lateinit var cartPresenterView: CartPresenterView
     private lateinit var cartAdapter: CartAdapter
     private lateinit var checkoutValue: TextView
+    private lateinit var lottieAnimationView: LottieAnimationView
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,15 +46,14 @@ class CartFragment : Fragment(), OnClickListenerCart, CartFragmentView {
     private fun inti(view :View){
         recyclerView = view.findViewById(R.id.recycle_of_meals_cart)
         checkoutValue = view.findViewById(R.id.checkout_value)
+        lottieAnimationView = view.findViewById(R.id.lottie_animation_no_product)
 
     }
 
     private fun setUp(){
         checkoutValue.text="0"
-        meals = arrayListOf()
         cartAdapter = CartAdapter(this)
         recyclerView.adapter = cartAdapter
-        recyclerView.itemAnimator = DefaultItemAnimator()
         cartPresenter = CartPresenter(
             RepositoryIm(LocalSource.getInstance(requireContext())),
             this
@@ -84,19 +87,32 @@ class CartFragment : Fragment(), OnClickListenerCart, CartFragmentView {
 
     override fun deleteMeal(meal: Meal) {
         cartPresenterView.deleteMeal(meal)
+
     }
 
     override fun getMeals(meals: List<Meal>) {
-        Toast.makeText(requireActivity(), "${meals.size}", Toast.LENGTH_SHORT).show()
-        this.meals = meals
+        if(meals.isEmpty()){
+            lottieAnimationView.makeVisible()
+        }else{
+            lottieAnimationView.makeGone()
+        }
         cartAdapter.submitList(meals)
     }
 
 
+//    private fun showWeekDialog() {
+//        MaterialAlertDialogBuilder(requireContext())
+//            .setTitle(R.string.selected_planned_meal)
+//            .setItems(R.array.days_of_week) { dialog, which ->
+//                val dayOfWeek =
+//                    resources.getStringArray(R.array.days_of_week)[which]
+//                showDayDialog(dayOfWeek)
+//            }.create().show()
+//    }
 
 
     override fun deleteDone() {
-        Toast.makeText(requireActivity(), "تم الحذف", Toast.LENGTH_SHORT).show()
+     //   Toast.makeText(requireActivity(), "تم الحذف", Toast.LENGTH_SHORT).show()
     }
 
     override fun updateDone() {
@@ -105,7 +121,7 @@ class CartFragment : Fragment(), OnClickListenerCart, CartFragmentView {
     override fun getTotalPrice(totalPrice: Int) {
     if(totalPrice!=0){
         checkoutValue.makeVisible()
-        checkoutValue.text=totalPrice.toString()
+        checkoutValue.text=totalPrice.convertToArabicFormat()
     }else{
         checkoutValue.makeGone()
     }

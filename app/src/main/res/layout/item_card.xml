@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="130dp"
+    android:layout_height="wrap_content"
     tools:backgroundTint="@color/back_text"
     android:layout_marginVertical="@dimen/margin_6"
     android:backgroundTint="?attr/backgroundColor"
@@ -17,55 +17,69 @@
             android:id="@+id/cancel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_8"
+            android:layout_marginEnd="@dimen/margin_16"
             android:scaleType="centerCrop"
             android:src="@drawable/cancel"
             app:layout_constraintEnd_toEndOf="parent"
-       android:layout_marginEnd="@dimen/margin_16"
-            android:layout_marginTop="@dimen/margin_8"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent" />
+
         <ImageView
             android:id="@+id/image_meal_cart"
-            android:layout_width="@dimen/width_158"
+            android:layout_width="0dp"
             android:layout_height="@dimen/height_0"
+            android:layout_marginEnd="@dimen/margin_8"
             android:scaleType="centerCrop"
-            tools:src="@drawable/meat8"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/line0_start"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            tools:src="@drawable/meat8"
 
 
             />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/line0_start"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.45"
+            app:layout_constraintStart_toStartOf="parent" />
+
         <TextView
             android:id="@+id/meal_name_cart"
             style="@style/product_show_title"
-            android:layout_width="wrap_content"
-            app:layout_constraintVertical_bias=".1"
+            android:layout_width="0dp"
             android:layout_marginTop="@dimen/margin_8"
-            android:layout_marginStart="@dimen/margin_16"
-            app:layout_constraintStart_toEndOf="@+id/image_meal_cart"
+            android:layout_marginEnd="@dimen/margin_8"
+            android:ellipsize="end"
+            app:layout_constraintHorizontal_bias=".1"
+            android:textAlignment="textEnd"
+            app:layout_constraintEnd_toStartOf="@+id/cancel"
+
+            app:layout_constraintStart_toStartOf="@+id/line0_start"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="حواشي بلدي" />
+            tools:text="ييييييييسسييحواشي بلدي" />
 
         <TextView
             android:id="@+id/meal_quantity_cart"
             style="@style/product_show_subTitle"
-            tools:text="1 كيلو جرام"
-            android:layout_marginStart="@dimen/margin_16"
-            app:layout_constraintStart_toEndOf="@+id/image_meal_cart"
-            app:layout_constraintTop_toBottomOf="@+id/meal_name_cart" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="@+id/line0_start"
+            app:layout_constraintTop_toBottomOf="@+id/meal_name_cart"
+            tools:text="1 كيلو جرام" />
 
         <LinearLayout
             android:id="@+id/productQuantityContainer_cart"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/radius_16"
-            android:layout_marginTop="@dimen/margin_16"
-            android:layout_marginBottom="@dimen/radius_16"
+            android:layout_marginTop="@dimen/margin_8"
             android:orientation="horizontal"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/meal_quantity_cart"
-            app:layout_constraintHorizontal_bias=".1"
-            app:layout_constraintStart_toEndOf="@+id/image_meal_cart"
+            android:layout_marginBottom="@dimen/margin_8"
+            app:layout_constraintStart_toEndOf="@+id/line0_start"
             app:layout_constraintTop_toBottomOf="@+id/meal_quantity_cart">
 
             <ImageView
@@ -74,7 +88,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginEnd="@dimen/padding_4"
-                android:paddingBottom="10dp"
+                android:paddingBottom="@dimen/font_size_15"
                 android:src="@drawable/minimize_product" />
 
             <TextView
@@ -84,8 +98,6 @@
                 android:background="@drawable/product_quantity"
                 android:gravity="center"
                 android:maxLines="1"
-
-                android:padding="@dimen/padding_8"
                 android:textColor="@color/white"
                 android:textStyle="bold"
                 tools:text="5000" />
@@ -96,22 +108,24 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginStart="@dimen/margin_4"
-                android:src="@drawable/add_product" />
+                android:padding="@dimen/padding_8"
+                android:src="@drawable/add_cart_screen" />
         </LinearLayout>
 
         <TextView
             android:id="@+id/meal_price_cart"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/radius_16"
-            android:drawablePadding="@dimen/padding_2"
+            android:layout_width="0dp"
+            android:layout_height="25dp"
+            android:ellipsize="end"
+            app:layout_constraintHorizontal_bias=".1"
+            android:textAlignment="textEnd"
             android:theme="@style/bigTextTheme"
             app:drawableStartCompat="@drawable/money"
             app:layout_constraintBottom_toBottomOf="@+id/productQuantityContainer_cart"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias=".1"
+            app:layout_constraintStart_toEndOf="@+id/productQuantityContainer_cart"
             app:layout_constraintTop_toTopOf="@+id/productQuantityContainer_cart"
-            tools:text="5" />
+            tools:text="155dddddddss5" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

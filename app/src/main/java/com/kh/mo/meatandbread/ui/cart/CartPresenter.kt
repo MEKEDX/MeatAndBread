@@ -66,7 +66,6 @@ class CartPresenter(
         mealPrice: Int,
         type: String,
         equation: (Int, Int) -> Int
-
     ): Meal {
         val rateLimits = mapOf(
             Constants.meat to Pair(250, 5000),
@@ -74,23 +73,17 @@ class CartPresenter(
             Constants.proMeat to Pair(500, 5000)
         )
         val (minLimit, maxLimit) = rateLimits[meal.typeofMeal] ?: Pair(0, 0)
-        var tempR = 0
-        var tempP = 0
         if (mealQuantityValue != minLimit && type == "-") {
-            tempR = equation(mealQuantityValue, meal.mealQuantityRate)
-            tempP = equation(mealPrice, meal.mealPriceRate)
             return meal.copy(
-                mealQuantityValue = tempR,
-                price = tempP
+                mealQuantityValue = equation(mealQuantityValue, meal.mealQuantityRate),
+                price = equation(mealPrice, meal.mealPriceRate)
             )
 
         }
         if (mealQuantityValue < maxLimit && type == "+") {
-            tempR = equation(mealQuantityValue, meal.mealQuantityRate)
-            tempP = equation(mealPrice, meal.mealPriceRate)
             return meal.copy(
-                mealQuantityValue = tempR,
-                price = tempP
+                mealQuantityValue =  equation(mealQuantityValue, meal.mealQuantityRate),
+                price = equation(mealPrice, meal.mealPriceRate)
             )
         }
         return meal
