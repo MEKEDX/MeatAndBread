@@ -1,11 +1,10 @@
 package com.kh.mo.meatandbread.ui.waiting
 
-import android.app.NotificationChannel
-import android.app.NotificationManager
-import android.content.BroadcastReceiver
-import android.content.Context
+
+import android.app.PendingIntent
+
 import android.content.Intent
-import android.content.IntentFilter
+import android.content.SharedPreferences
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -14,170 +13,149 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
 import android.widget.TextView
-import androidx.core.app.NotificationCompat
-import androidx.core.app.NotificationManagerCompat
+import android.app.AlarmManager
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
+import com.google.gson.Gson
 import com.kh.mo.meatandbread.R
-import java.text.SimpleDateFormat
+import com.kh.mo.meatandbread.model.Time
+import com.kh.mo.meatandbread.ui.waiting.SaveTimer.customPreference
+import com.kh.mo.meatandbread.ui.waiting.SaveTimer.time
+import com.kh.mo.meatandbread.util.Constants.PREFERENCE_NAME
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import java.util.*
-import kotlin.math.roundToInt
+import io.reactivex.rxjava3.core.Observable
+import io.reactivex.rxjava3.disposables.Disposable
+import io.reactivex.rxjava3.schedulers.Schedulers
+import io.reactivex.rxjava3.subjects.PublishSubject
+import java.util.concurrent.TimeUnit
+
 
 
 class WaitingFragment : Fragment() {
 
     private lateinit var progressBar: ProgressBar
     private lateinit var countDownTextView: TextView
-    private var timerStarted = false
-    private lateinit var serviceIntent: Intent
-    private var time = 20.0
-
-
-    override fun onViewStateRestored(savedInstanceState: Bundle?) {
-        super.onViewStateRestored(savedInstanceState)
-
-        if (savedInstanceState?.getBoolean("isTimer") != null)
-            timerStarted = savedInstanceState.getBoolean("isTimer")
-
-    }
+    private lateinit var disposable: Disposable
+    private lateinit var prefs: SharedPreferences
+    private var periodTime = 60
+    val TAG = "TAaaaaaG"
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View? {
-        Log.d("tttttt", "onCreateView: ")
         return inflater.inflate(R.layout.fragment_waiting, container, false)
     }
 
+    @RequiresApi(Build.VERSION_CODES.S)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        alarManager()
+        inti(view)
+        if (prefs.time == "") {
+            prefs.time = Gson().toJson(getFutureTime(periodTime))
+        } else {
+            Log.d(TAG, "onViewCreated:${prefs.time} ")
+        }
+        updateTime()
+    }
+
+    private fun inti(view: View) {
         progressBar = view.findViewById(R.id.progress_count_down)
         countDownTextView = view.findViewById(R.id.count_down_txt_view)
-        progressBar.max = time.toInt()
-
-        serviceIntent = Intent(requireActivity().applicationContext,
-            TimerService::class.java)
-
-        requireActivity().registerReceiver(updateTime, IntentFilter(TimerService.TIMER_UPDATED))
+        progressBar.max = periodTime
+        prefs = customPreference(requireActivity(), PREFERENCE_NAME)
     }
 
-    override fun onStart() {
-        super.onStart()
-        if (!timerStarted) {
-            startTimer()
-        }
+    private fun updateTime() {
+        disposable = observeTime.subscribeOn(Schedulers.io()).observeOn(
+            AndroidSchedulers.mainThread()
+        ).subscribe({ time ->
+
+            Log.d(TAG, "updateTime: ${time.minutes},${time.seconds}")
+            countDownTextView.text = makeTimeString(time.minutes, time.seconds)
+            val i = time.minutes * 60 + time.seconds
+            progressBar.progress = i
+
+        }, { error -> }, {})
+    }
+
+
+    private fun getFutureTime(remainTime: Int): Date {
+        val currentTime = Date()
+        return calculateTimeAfterMinutes(currentTime, remainTime)
+    }
+
+    private fun calculateTimeAfterMinutes(startTime: Date, minutesToAdd: Int): Date {
+        val calendar = Calendar.getInstance()
+        calendar.time = startTime
+        calendar.add(Calendar.MINUTE, (minutesToAdd / 60))
+        return calendar.time
 
     }
 
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        outState.putBoolean("isTimer", timerStarted)
-    }
+    private val stopSignal = PublishSubject.create<Unit>()
 
-    private val updateTime: BroadcastReceiver = object : BroadcastReceiver() {
-        override fun onReceive(p0: Context?, intent: Intent) {
+    private val observeTime: Observable<Time> =
 
-            time = intent.getDoubleExtra(TimerService.TIME_EXTRA, 0.0)
-            if (time > 0) {
-                countDownTextView.text = getTimerStringFromDouble(time)
-                progressBar.progress = progressBar.max - time.roundToInt()
-            } else {
-                countDownTextView.text = getTimerStringFromDouble(0.0)
-                progressBar.progress = 0
-                stopTimer()
-          //      showNotification()
-
-
+        Observable.interval(1, TimeUnit.SECONDS)
+            .takeUntil { periodTime <= 0 }
+            .takeUntil(stopSignal)
+            .map {
+                val minutes = (periodTime / 60)
+                val seconds = (periodTime % 60)
+                periodTime -= 1
+                Time(minutes, seconds)
             }
-        }
-
-    }
-
-    fun getTimerStringFromDouble(time: Double): String {
-        val resultInt = time.roundToInt()
-
-        val mins = resultInt % 86400 % 3600 / 60
-        val secs = resultInt % 86400 % 3600 % 60
-        return makeTimeString(mins, secs)
-    }
 
 
-    private fun makeTimeString(mins: Int, secs: Int) = String.format("%02d:%02d", mins, secs)
+    private fun makeTimeString(min: Int, secs: Int) = String.format("%02d:%02d", min, secs)
 
-    private fun startTimer() {
-        serviceIntent.putExtra(TimerService.TIME_EXTRA, time)
-        requireActivity().startService(serviceIntent)
-        timerStarted = true
-    }
 
-    private fun resetTimer() {
-        stopTimer()
-        time = 0.0
-        countDownTextView.text = getTimerStringFromDouble(time)
-    }
+    override fun onResume() {
+        super.onResume()
+        val time = prefs.time
+        val date = Gson().fromJson(time, Date::class.java)
+        Log.d(TAG, "Saved Time: ${date.time}")
+        val currentTime = Date().time
+        val timeDifferenceMillis = date.time - currentTime
+        Log.d(TAG, "current Time: ${Date().time} ")
 
-    private fun startStopTimer() {
-        if (timerStarted) {
-            stopTimer()
+        val timeDifferenceSeconds = timeDifferenceMillis / 1000
+        Log.d(TAG, "Remaining Time: $timeDifferenceSeconds")
+
+        if (timeDifferenceSeconds.toInt() > 0) {
+            periodTime = timeDifferenceSeconds.toInt()
         } else {
-            startTimer()
+            periodTime = 0
+            stopSignal.onNext(Unit)
         }
+        Log.d(TAG, "periodTime $periodTime")
+        updateTime()
     }
 
-    private fun stopTimer() {
-        activity?.stopService(serviceIntent)
-        timerStarted = false
-
-
+    override fun onPause() {
+        super.onPause()
+        disposable.dispose()
     }
 
-
-    private fun showNotification() {
-        createNotificationChannel()
-        val date = Date()
-        val notificationId = SimpleDateFormat("ddHHmmss", Locale.US).format(date).toInt()
-        val notificationBuilder = NotificationCompat.Builder(
-            requireActivity().applicationContext,
-            "$CHANNEL_ID"
-        )
-        notificationBuilder.setSmallIcon(R.drawable.notification)
-        notificationBuilder.setContentTitle("Your Meal")
-        notificationBuilder.setContentText("Done")
-        notificationBuilder.priority = NotificationCompat.PRIORITY_DEFAULT
-        notificationBuilder.setAutoCancel(true)
-        val notificationManager =
-            NotificationManagerCompat.from(requireActivity().applicationContext)
-        notificationManager.notify(notificationId, notificationBuilder.build())
-
-
-    }
-
-    private fun createNotificationChannel() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val name: CharSequence = "MyNotification"
-            val description = "My notification channel description"
-            val importance = NotificationManager.IMPORTANCE_HIGH
-            val notificationChannel = NotificationChannel(CHANNEL_ID, name, importance)
-            notificationChannel.description = description
-            val notificationManager = activity?.getSystemService(
-                NotificationManager::class.java
+    private fun alarManager() {
+        val alarmManager =
+            requireContext().getSystemService(AlarmManager::class.java)
+        val intent = Intent(requireActivity(), AlarmReceiver::class.java)
+        val pendingIntent =
+            PendingIntent.getBroadcast(
+                requireContext(), 0, intent,
+                PendingIntent.FLAG_IMMUTABLE
             )
-            notificationManager?.createNotificationChannel(notificationChannel)
-        }
+
+        val alarmTime = System.currentTimeMillis() + periodTime * 1000 // Convert seconds to milliseconds
+        alarmManager?.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP,alarmTime , pendingIntent)
+
+//        if (pendingIntent != null && alarmManager != null) {
+//            alarmManager.cancel(pendingIntent)
+//        }
     }
-
-    companion object {
-        const val CHANNEL_ID = "channel01"
-        fun getTimerStringFromDouble(time: Double): String {
-            val resultInt = time.roundToInt()
-
-            val mins = resultInt % 86400 % 3600 / 60
-            val secs = resultInt % 86400 % 3600 % 60
-            return makeTimeString(mins, secs)
-        }
-
-
-        private fun makeTimeString(mins: Int, secs: Int) = String.format("%02d:%02d", mins, secs)
-
-    }
-
 }
+

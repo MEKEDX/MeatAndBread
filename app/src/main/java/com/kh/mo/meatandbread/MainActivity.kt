@@ -54,11 +54,4 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    override fun onDestroy() {
-        val sharedPreference = getSharedPreferences("PREFERENCE_NAME" , Context.MODE_PRIVATE)
-        var editor = sharedPreference.edit()
-        editor.putString("time",null)
-        editor.commit()
-        super.onDestroy()
-    }
 }
