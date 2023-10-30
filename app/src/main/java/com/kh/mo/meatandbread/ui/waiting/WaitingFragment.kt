@@ -6,7 +6,6 @@ import android.app.PendingIntent
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -47,37 +46,58 @@ class WaitingFragment : Fragment() {
         intiView(view)
         intiSharedPreference()
         receiveTimeOfCookingMeals()
+
+        saveProgressAndTimeOfCooking()
+        putIntiValueForProgressBar()
+        checkTimeForMeal()
+
     }
 
+    private fun checkTimeForMeal(){
+        getSavedTimeOfEndOfCookingMeals()
+            .takeIf { it>0 }?.let {
+                alarManager(it)
+            }
+    }
+    private fun saveProgressAndTimeOfCooking() {
+        if (periodTime > 0L) {
+            savedProgressOfTime(periodTime.toInt())
+            savedTimeOfEndOfCookingMeals()
+        }
+    }
+
+    private fun checkIfStillRemainTime() {
+        if (isTimerEmpty() != true) {
+            updateProgressBarForNewTime()
+        } else {
+            timerIsEnd()
+        }
+    }
+
+    private fun updateProgressBarForNewTime() {
+        val secondsRemainingTime = getSecondsRemainingTime()
+        if (secondsRemainingTime > 0) {
+            periodTime = secondsRemainingTime
+            updateUI()
+
+        }
+    }
 
 
     override fun onResume() {
         super.onResume()
-        if(periodTime>0L) {
-            savedProgressOfTime(periodTime.toInt())
-            savedTimeOfEndOfCookingMeals()
-        }
-        if (isTimerEmpty() != true) {
-            val secondsRemainingTime = getSecondsRemainingTime()
-            if (secondsRemainingTime > 0) {
-                periodTime = secondsRemainingTime
-                putIntiValueForProgressBar()
-                updateUI()
-                alarManager()
-            } else {
-                timerIsEnd()
-            }
-        }
+        checkIfStillRemainTime()
     }
 
-    private fun alarManager() {
+    private fun alarManager(futureTime:Long) {
         alarmManager = requireContext().getSystemService(AlarmManager::class.java)
         val intent = Intent(requireActivity(), AlarmReceiver::class.java)
         pendingIntent =
             PendingIntent.getBroadcast(requireContext(), 0, intent, PendingIntent.FLAG_IMMUTABLE)
         alarmManager.setExactAndAllowWhileIdle(
             AlarmManager.RTC_WAKEUP,
-            getSavedTimeOfEndOfCookingMeals(),
+            futureTime
+           ,
             pendingIntent
         )
     }
@@ -104,7 +124,7 @@ class WaitingFragment : Fragment() {
     }
 
     private fun putIntiValueForProgressBar() {
-            progressBar.max = getSavedProgressOfTime()
+        progressBar.max = getSavedProgressOfTime()
     }
 
     private fun intiSharedPreference() {
@@ -119,8 +139,11 @@ class WaitingFragment : Fragment() {
         }
     }
 
-    private fun getSavedTimeOfEndOfCookingMeals() =
-        Gson().fromJson(prefs.time, Date::class.java).time
+    private fun getSavedTimeOfEndOfCookingMeals(): Long {
+        return if (prefs.time != "") {
+            Gson().fromJson(prefs.time, Date::class.java).time
+        } else 0L
+    }
 
     private fun getCurrentTime() = Calendar.getInstance().time
 
