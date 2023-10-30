@@ -6,6 +6,7 @@ object Constants {
  const val  proMeat:String="proMeat"
  const val CHANNEL_ID="Channel_id"
  const val TIME="TIME"
+ const val PROGRESS="PROGRESS"
  const val PREFERENCE_NAME = "PREFERENCE_NAME"
 
 }

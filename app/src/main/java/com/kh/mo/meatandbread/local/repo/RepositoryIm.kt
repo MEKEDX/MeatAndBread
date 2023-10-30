@@ -27,6 +27,11 @@ class RepositoryIm(private val localSource: LocalSource) : Repository {
         return localSource.mealDao.mealDao().getTotalPrice()
     }
 
+    override fun getTotalTime(): Observable<Int> {
+        return localSource.mealDao.mealDao().getTotalTime()
+
+    }
+
     override fun getMeal(id: Int): Single<Meal> {
         return localSource.mealDao.mealDao().getPlanedMeal(id)
     }

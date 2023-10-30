@@ -14,5 +14,6 @@ interface Repository {
 
     fun getMeals(type:String): List<Meal>
     fun getTotalPrice(): Observable<Int>
+    fun getTotalTime(): Observable<Int>
 
 }

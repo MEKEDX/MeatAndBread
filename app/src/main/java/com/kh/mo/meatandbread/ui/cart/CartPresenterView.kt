@@ -6,6 +6,7 @@ interface CartPresenterView {
     fun getAllMeals()
     fun deleteMeal(meal: Meal)
     fun getTotalPrice()
+    fun getTotalTime()
     fun clickPlus(  meal: Meal,
                     mealQuantityValue: Int,
                     mealPrice: Int,

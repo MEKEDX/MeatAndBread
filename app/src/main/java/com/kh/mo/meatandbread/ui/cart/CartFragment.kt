@@ -1,11 +1,14 @@
 package com.kh.mo.meatandbread.ui.cart
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
+import androidx.core.view.isEmpty
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
@@ -14,9 +17,11 @@ import com.kh.mo.meatandbread.R
 import com.kh.mo.meatandbread.local.repo.RepositoryIm
 import com.kh.mo.meatandbread.local.repo.local.LocalSource
 import com.kh.mo.meatandbread.model.Meal
+import com.kh.mo.meatandbread.ui.home.HomeFragmentDirections
 import com.kh.mo.meatandbread.util.convertToArabicFormat
 import com.kh.mo.meatandbread.util.makeGone
 import com.kh.mo.meatandbread.util.makeVisible
+import kotlin.properties.Delegates
 
 class CartFragment : Fragment(), OnClickListenerCart, CartFragmentView {
     private lateinit var recyclerView: RecyclerView
@@ -26,7 +31,7 @@ class CartFragment : Fragment(), OnClickListenerCart, CartFragmentView {
     private lateinit var checkoutValue: TextView
     private lateinit var checkout: Button
     private lateinit var lottieAnimationView: LottieAnimationView
-
+    private var totalTime: Int = 0
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -61,12 +66,13 @@ class CartFragment : Fragment(), OnClickListenerCart, CartFragmentView {
 
         checkout.setOnClickListener {
             showWeekDialog()
-            startTimer()
+            navigateToTimer()
         }
 
         cartPresenterView = cartPresenter
         cartPresenterView.getAllMeals()
         cartPresenterView.getTotalPrice()
+        cartPresenterView.getTotalTime()
     }
 
     override fun clickCartMeal(meal: Meal) {
@@ -139,8 +145,22 @@ class CartFragment : Fragment(), OnClickListenerCart, CartFragmentView {
         }
     }
 
+    override fun getTotalTime(totalTime: Int) {
+        this.totalTime = totalTime
+    }
 
-    private fun startTimer() {
+    private fun isCartListEmpty()=recyclerView.isEmpty()
+
+
+
+
+    private fun navigateToTimer() {
+        if(!isCartListEmpty()){
+            findNavController().navigate(
+                CartFragmentDirections.actionCartToWaiting(totalTime)
+            )
+        }else{
+            Toast.makeText(requireActivity(), "اضف للسلة بعض المشتريات", Toast.LENGTH_SHORT).show()}
 
     }
 }

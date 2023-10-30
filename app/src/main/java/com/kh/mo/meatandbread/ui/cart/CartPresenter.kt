@@ -34,6 +34,12 @@ class CartPresenter(
             .subscribe({ cartFragmentView.getTotalPrice(it) }, {})
     }
 
+    override fun getTotalTime() {
+        repository.getTotalTime().subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({ cartFragmentView.getTotalTime(it) }, {})
+    }
+
     override fun clickPlus(
         meal: Meal,
         mealQuantityValue: Int,

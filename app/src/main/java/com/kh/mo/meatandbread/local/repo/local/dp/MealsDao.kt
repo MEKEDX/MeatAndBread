@@ -28,4 +28,7 @@ interface MealsDao {
     @Query("SELECT COALESCE(SUM(price), 0) FROM MEALS_TABLE")
     fun getTotalPrice(): Observable<Int>
 
+    @Query("SELECT COALESCE(SUM(time), 0) FROM MEALS_TABLE")
+    fun getTotalTime(): Observable<Int>
+
 }

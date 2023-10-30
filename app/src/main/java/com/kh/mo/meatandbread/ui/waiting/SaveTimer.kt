@@ -5,6 +5,7 @@ import android.content.SharedPreferences
 import android.preference.PreferenceManager
 import com.google.gson.Gson
 import com.kh.mo.meatandbread.model.Time
+import com.kh.mo.meatandbread.util.Constants.PROGRESS
 import com.kh.mo.meatandbread.util.Constants.TIME
 import java.util.*
 
@@ -17,13 +18,12 @@ object SaveTimer {
         editMe.apply()
     }
 
+
+
+
     var SharedPreferences.clearValues: () -> Unit
-        get() = { }
-        set(value) {
-            editMe {
-                it.clear()
-            }
-        }
+        get() = { this.edit().clear().apply() }
+        set(value) {}
 
     var SharedPreferences.time
         get() = getString(TIME, "")
@@ -32,6 +32,20 @@ object SaveTimer {
                 it.putString(TIME, value)
             }
         }
+
+
+    var SharedPreferences.progress
+        get() = getInt(PROGRESS, 0)
+        set(value) {
+            editMe {
+                it.putInt(PROGRESS, value)
+            }
+        }
+
+    val SharedPreferences.isTimeClear
+        get() = getString(TIME, "")?.isEmpty()
+
+
 
 }
 

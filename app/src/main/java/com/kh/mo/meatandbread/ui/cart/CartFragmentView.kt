@@ -7,6 +7,7 @@ interface CartFragmentView {
     fun deleteDone()
     fun updateDone()
     fun getTotalPrice(totalPrice: Int)
+    fun getTotalTime(totalTime: Int)
 
 
 }
