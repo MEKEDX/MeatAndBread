@@ -229,8 +229,9 @@ class CartFragment : Fragment(), OnClickListenerCart, CartFragmentView {
                 Uri.parse("https://wa.me/+201119112723?text=$message"),
                 "text/plain"
             )
-            startActivity(intent)
             navigateToTimer()
+            startActivity(intent)
+
 
         } catch (ex: ActivityNotFoundException) {
 
@@ -248,8 +249,9 @@ class CartFragment : Fragment(), OnClickListenerCart, CartFragmentView {
                 Intent.EXTRA_TEXT,
                 message
             )
-            startActivity(intent)
             navigateToTimer()
+            startActivity(intent)
+
 
         } catch (ex: ActivityNotFoundException) {
 
@@ -257,15 +259,16 @@ class CartFragment : Fragment(), OnClickListenerCart, CartFragmentView {
     }
 
     private fun openSMS(message: String) {
+        try {
         dialog.dismiss()
-
         val countryCode = "+2"
         val phoneNumber = "01119112723"
         val intent = Intent(Intent.ACTION_VIEW)
         intent.data = Uri.parse("smsto:$countryCode$phoneNumber")
         intent.putExtra("sms_body", message)
-        startActivity(intent)
         navigateToTimer()
+        startActivity(intent)
+        }catch (ex: ActivityNotFoundException){}
     }
 
 }

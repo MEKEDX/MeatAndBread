@@ -33,7 +33,7 @@
     </style>
 
     <style name="font_style">
-        <item name="android:textSize">@dimen/font_size_18</item>
+        <item name="android:textSize">@dimen/font_size_22</item>
         <item name="android:fontFamily">@font/messiri</item>
     </style>
     <style name="bigTextTheme">
@@ -82,4 +82,5 @@
     </style>
 
 
+    <dimen name="font_size_22">22sp</dimen>
 </resources>
