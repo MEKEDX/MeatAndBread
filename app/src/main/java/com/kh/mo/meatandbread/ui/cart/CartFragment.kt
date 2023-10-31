@@ -195,8 +195,7 @@ class CartFragment : Fragment(), OnClickListenerCart, CartFragmentView {
             2 -> openSMS(getMessage())
 
         }
-        dialog.dismiss()
-        navigateToTimer()
+
 
     }
 
@@ -208,7 +207,7 @@ class CartFragment : Fragment(), OnClickListenerCart, CartFragmentView {
 
     private fun getMessage(): String {
 
-        return getString(R.string.start_of_message) + "\n" + meals.joinToString("\n") { meal ->
+        return getString(R.string.start_of_message) + " \n " + meals.joinToString("\n") { meal ->
             getString(
                 R.string.message_of_request,
                 meal.mealQuantityValue.convertToArabicFormat(),
@@ -216,27 +215,32 @@ class CartFragment : Fragment(), OnClickListenerCart, CartFragmentView {
                 meal.name,
                 meal.price.convertToArabicFormat()
             )
-        } + "\n" + getString(R.string.end_of_message, checkoutValue.text)
+        } + " \n " + getString(R.string.end_of_message, checkoutValue.text)
 
 
     }
 
     private fun openWhatsApp(message: String) {
         try {
+            dialog.dismiss()
+
             val intent = Intent(Intent.ACTION_VIEW)
             intent.setDataAndType(
                 Uri.parse("https://wa.me/+201119112723?text=$message"),
                 "text/plain"
             )
             startActivity(intent)
+            navigateToTimer()
+
         } catch (ex: ActivityNotFoundException) {
 
         }
-
     }
 
     private fun openMessenger(message: String) {
         try {
+            dialog.dismiss()
+
             val intent = Intent(Intent.ACTION_SEND)
             intent.type = "text/plain"
             intent.setPackage("com.facebook.orca")
@@ -245,20 +249,23 @@ class CartFragment : Fragment(), OnClickListenerCart, CartFragmentView {
                 message
             )
             startActivity(intent)
+            navigateToTimer()
+
         } catch (ex: ActivityNotFoundException) {
 
         }
-
     }
 
     private fun openSMS(message: String) {
+        dialog.dismiss()
+
         val countryCode = "+2"
         val phoneNumber = "01119112723"
         val intent = Intent(Intent.ACTION_VIEW)
         intent.data = Uri.parse("smsto:$countryCode$phoneNumber")
         intent.putExtra("sms_body", message)
         startActivity(intent)
-
+        navigateToTimer()
     }
 
 }
