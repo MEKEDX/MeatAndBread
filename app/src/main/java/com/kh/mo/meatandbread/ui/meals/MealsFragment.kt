@@ -51,8 +51,6 @@ class MealsFragment : Fragment() ,MealsView{
     }
 
     private fun setUp() {
-        mealsPresenterView.getMeals(type)
-
         backButton.setOnClickListener { closeFragment() }
         title.text = StringBuilder().apply {
             append("أصناف ")
@@ -69,6 +67,11 @@ class MealsFragment : Fragment() ,MealsView{
     override fun getMeals(meals: List<Meal>) {
         this.meals=meals
         recyclerView.adapter = MealsAdapter(context, meals,::clickMeal )
+    }
+
+    override fun onResume() {
+        super.onResume()
+        mealsPresenterView.getMeals(type)
     }
 }
 

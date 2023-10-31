@@ -30,7 +30,7 @@ fun createNotification(context: Context): NotificationCompat.Builder {
     }
 
     val builder = NotificationCompat.Builder(context, CHANNEL_ID)
-        .setSmallIcon(R.drawable.time)
+        .setSmallIcon(R.drawable.ic_launcher_foreground)
         .setContentTitle("الوجبة جاهزة")
         .setContentText("نحن في انتظارك لستلام الوجبة")
         .setPriority(NotificationCompat.PRIORITY_DEFAULT)

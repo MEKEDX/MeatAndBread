@@ -37,7 +37,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 app:layout_constraintStart_toStartOf="parent"
-                android:contentDescription="@string/cat"
                 android:foreground="@drawable/gradiant"
                 android:scaleType="centerCrop"
                 android:src="@drawable/hawawshi"
@@ -81,7 +80,6 @@
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:contentDescription="@string/cat"
                 android:foreground="@drawable/gradiant"
                 android:scaleType="centerCrop"
                 android:src="@drawable/meat"
@@ -130,7 +128,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_constraintStart_toStartOf="parent"
-                android:contentDescription="@string/cat"
                 android:foreground="@drawable/gradiant"
                 android:scaleType="centerCrop"
                 android:src="@drawable/processed_meat"

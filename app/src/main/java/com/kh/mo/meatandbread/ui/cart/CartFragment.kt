@@ -34,9 +34,16 @@ import java.text.FieldPosition
 
 class CartFragment : Fragment(), OnClickListenerCart, CartFragmentView {
     private lateinit var recyclerView: RecyclerView
-    private lateinit var cartPresenter: CartPresenter
+    private  val cartPresenter: CartPresenter by lazy {
+        CartPresenter(
+            RepositoryIm(LocalSource.getInstance(requireContext())),
+            this
+        )
+    }
     private lateinit var cartPresenterView: CartPresenterView
-    private lateinit var cartAdapter: CartAdapter
+    private val  cartAdapter: CartAdapter by lazy{
+        CartAdapter(this)
+    }
     private lateinit var meals: List<Meal>
     private lateinit var checkoutValue: TextView
     private lateinit var checkout: Button
@@ -67,14 +74,12 @@ class CartFragment : Fragment(), OnClickListenerCart, CartFragmentView {
     }
 
     private fun setUp() {
-        checkoutValue.text = "0"
-        cartAdapter = CartAdapter(this)
-        recyclerView.adapter = cartAdapter
-        cartPresenter = CartPresenter(
-            RepositoryIm(LocalSource.getInstance(requireContext())),
-            this
-        )
+        clickToSend()
+        cartPresenterView = cartPresenter
+        cartPresenterView.getAllMeals()
 
+    }
+    private fun clickToSend(){
         checkout.setOnClickListener {
             if (!isCartListEmpty()) {
                 if (SaveTimer.customPreference(
@@ -97,10 +102,6 @@ class CartFragment : Fragment(), OnClickListenerCart, CartFragmentView {
 
         }
 
-        cartPresenterView = cartPresenter
-        cartPresenterView.getAllMeals()
-        cartPresenterView.getTotalPrice()
-        cartPresenterView.getTotalTime()
     }
 
     override fun clickCartMeal(meal: Meal) {
@@ -136,6 +137,9 @@ class CartFragment : Fragment(), OnClickListenerCart, CartFragmentView {
             lottieAnimationView.makeVisible()
         } else {
             lottieAnimationView.makeGone()
+            recyclerView.adapter = cartAdapter
+            cartPresenterView.getTotalPrice()
+
         }
         cartAdapter.submitList(meals)
         this.meals = meals
@@ -163,6 +167,7 @@ class CartFragment : Fragment(), OnClickListenerCart, CartFragmentView {
     private fun isCartListEmpty() = recyclerView.isEmpty()
 
     private fun navigateToTimer() {
+        cartPresenterView.getTotalTime()
 
         findNavController().navigate(
             CartFragmentDirections.actionCartToWaiting(totalTime)

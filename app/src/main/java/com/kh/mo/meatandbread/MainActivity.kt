@@ -44,7 +44,8 @@ class MainActivity : AppCompatActivity() {
             val destinationId = destination.id
             if (destinationId == R.id.homeF ||
                 destinationId == R.id.cart||
-                destinationId== R.id.waiting
+                destinationId== R.id.waiting||
+                destinationId== R.id.mealsFragment
             ) {
                 bottomBar.makeVisible()
             } else {
