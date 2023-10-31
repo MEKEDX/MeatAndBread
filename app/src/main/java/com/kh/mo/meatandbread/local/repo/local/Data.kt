@@ -26,42 +26,48 @@ class Data  constructor(val context: Context?) {
             20,
 
             context?.getString(R.string.hwa1Details).toString(),
-            context?.getString(R.string.mealQuantityHwa).toString(), Constants.hwa, 20
+            context?.getString(R.string.mealQuantityHwa).toString(), Constants.hwa, 20,
+            context?.getString(R.string.mealQuantityHwaUnit).toString()
         ),
         Meal(
             2,
             R.drawable.haw7, context?.getString(R.string.hwa2).toString(), 1, 1,
             25, 25,
             context?.getString(R.string.hwa2Details).toString(),
-            context?.getString(R.string.mealQuantityHwa).toString(), Constants.hwa, 25
+            context?.getString(R.string.mealQuantityHwa).toString(), Constants.hwa, 25,
+            context?.getString(R.string.mealQuantityHwaUnit).toString()
         ),
         Meal(
             3,
             R.drawable.haw2, context?.getString(R.string.hwa3).toString(), 1,
             1, 30, 30,
             context?.getString(R.string.hwa3Details).toString(),
-            context?.getString(R.string.mealQuantityHwa).toString(), Constants.hwa, 25
+            context?.getString(R.string.mealQuantityHwa).toString(), Constants.hwa, 25,
+            context?.getString(R.string.mealQuantityHwaUnit).toString()
         ),
         Meal(
             4,
             R.drawable.haw8, context?.getString(R.string.hwa4).toString(), 1,
             1, 30, 30,
             context?.getString(R.string.hwa4Details).toString(),
-            context?.getString(R.string.mealQuantityHwa).toString(), Constants.hwa, 25
+            context?.getString(R.string.mealQuantityHwa).toString(), Constants.hwa, 25,
+            context?.getString(R.string.mealQuantityHwaUnit).toString()
         ),
         Meal(
             5,
             R.drawable.haw1, context?.getString(R.string.hwa5).toString(), 1,
             1, 30, 30,
             context?.getString(R.string.hwa5Details).toString(),
-            context?.getString(R.string.mealQuantityHwa).toString(), Constants.hwa, 25
+            context?.getString(R.string.mealQuantityHwa).toString(), Constants.hwa, 25,
+            context?.getString(R.string.mealQuantityHwaUnit).toString()
         ),
         Meal(
             6,
             R.drawable.haw5, context?.getString(R.string.hwa6).toString(), 1,
             1, 35, 35,
             context?.getString(R.string.hwa6Details).toString(),
-            context?.getString(R.string.mealQuantityHwa).toString(), Constants.hwa, 25
+            context?.getString(R.string.mealQuantityHwa).toString(), Constants.hwa, 25,
+            context?.getString(R.string.mealQuantityHwaUnit).toString()
         ),
     )
 

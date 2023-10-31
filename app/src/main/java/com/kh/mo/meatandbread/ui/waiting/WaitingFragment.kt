@@ -65,7 +65,6 @@ class WaitingFragment : Fragment() {
             savedTimeOfEndOfCookingMeals()
         }
     }
-
     private fun checkIfStillRemainTime() {
         if (isTimerEmpty() != true) {
             updateProgressBarForNewTime()
@@ -73,7 +72,6 @@ class WaitingFragment : Fragment() {
             timerIsEnd()
         }
     }
-
     private fun updateProgressBarForNewTime() {
         val secondsRemainingTime = getSecondsRemainingTime()
         if (secondsRemainingTime > 0) {

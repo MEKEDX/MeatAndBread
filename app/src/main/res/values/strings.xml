@@ -52,7 +52,9 @@
     <string name="hwa6">حواوشي جبن مدخنه</string>
     <string name="hwa6Details">الحواوشي الجبن المدخنة هو عبارة عن عجينة عيش محشوة باللحم المفروم والبصل والثوم والتوابل، بالإضافة إلى الجبن المدخنة , يتميز الحواوشي الجبن المدخنة بمذاقه اللذيذ ورائحته الشهية , يستغرق نص ساعة  و خمس دقائق من وقت طلب الطلب.</string>
     <string name="mealQuantityHwa">١ رغيف</string>
+    <string name="mealQuantityHwaUnit">رغيف</string>
     <string name="mealQuantityMeat">٢٥٠  جرام</string>
+    <string name="mealQuantityMeatUnit">جرام</string>
     <string name="mealQuantityProMeat">٥٠٠ جرام</string>
     <string name="addToBasket">إضافه الي السلة</string>
     <string name="product_detail">تفاصيل المنتج</string>
@@ -64,6 +66,13 @@
 
 
     <string name="channelName">Time</string>
+    <string name="title_dialog_of_send_message">اختار الوسيله التي تود الارسال بها</string>
+    <string name="WhatApp">الوتساب</string>
+    <string name="Messenger">الماسينجر</string>
+    <string name="SMS">الرسائل</string>
+    <string name="message_of_request"> اريد %1$s %2$s %3$s مقابل %4$s جنيه </string>
+    <string name="start_of_message">السلام عليكم</string>
+    <string name="end_of_message">التكلفة الكلية %1$s</string>
 
 
 </resources>

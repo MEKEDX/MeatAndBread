@@ -18,8 +18,10 @@ data class Meal(
     val mealDetail: String?,
     val mealQuantity: String?,
     val typeofMeal: String? = Constants.meat,
-    val time: Int = 0
-) : Parcelable {
+    val time: Int = 0,
+    val mealQuantityUnit: String?="جرام"
+
+    ) : Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readInt(),
         parcel.readInt(),
@@ -32,6 +34,7 @@ data class Meal(
         parcel.readString(),
         parcel.readString(),
         parcel.readInt(),
+        parcel.readString()
     )
 
     override fun describeContents(): Int {

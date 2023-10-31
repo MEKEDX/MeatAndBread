@@ -1,5 +1,8 @@
 package com.kh.mo.meatandbread.ui.cart
 
+import android.content.ActivityNotFoundException
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -8,29 +11,37 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.core.view.isEmpty
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.airbnb.lottie.LottieAnimationView
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.kh.mo.meatandbread.R
 import com.kh.mo.meatandbread.local.repo.RepositoryIm
 import com.kh.mo.meatandbread.local.repo.local.LocalSource
 import com.kh.mo.meatandbread.model.Meal
-import com.kh.mo.meatandbread.ui.home.HomeFragmentDirections
+import com.kh.mo.meatandbread.model.WayOfSend
+import com.kh.mo.meatandbread.ui.waiting.SaveTimer
+import com.kh.mo.meatandbread.ui.waiting.SaveTimer.isTimeClear
+import com.kh.mo.meatandbread.ui.waiting.SaveTimer.time
+import com.kh.mo.meatandbread.util.Constants
 import com.kh.mo.meatandbread.util.convertToArabicFormat
 import com.kh.mo.meatandbread.util.makeGone
 import com.kh.mo.meatandbread.util.makeVisible
-import kotlin.properties.Delegates
+import java.text.FieldPosition
 
 class CartFragment : Fragment(), OnClickListenerCart, CartFragmentView {
     private lateinit var recyclerView: RecyclerView
     private lateinit var cartPresenter: CartPresenter
     private lateinit var cartPresenterView: CartPresenterView
     private lateinit var cartAdapter: CartAdapter
+    private lateinit var meals: List<Meal>
     private lateinit var checkoutValue: TextView
     private lateinit var checkout: Button
     private lateinit var lottieAnimationView: LottieAnimationView
+    private lateinit var dialog: AlertDialog
     private var totalTime: Int = 0
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -65,8 +76,25 @@ class CartFragment : Fragment(), OnClickListenerCart, CartFragmentView {
         )
 
         checkout.setOnClickListener {
-            showWeekDialog()
-            navigateToTimer()
+            if (!isCartListEmpty()) {
+                if (SaveTimer.customPreference(
+                        requireContext(), Constants.PREFERENCE_NAME
+                    ).isTimeClear == true
+                ) {
+                    showWeekDialog()
+                } else {
+                    Toast.makeText(
+                        requireActivity(),
+                        "من فضلك انتظر حتي انتهاء طلبك الاول",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+
+            } else {
+                Toast.makeText(requireActivity(), "اضف للسلة بعض المشتريات", Toast.LENGTH_SHORT)
+                    .show()
+            }
+
         }
 
         cartPresenterView = cartPresenter
@@ -110,24 +138,7 @@ class CartFragment : Fragment(), OnClickListenerCart, CartFragmentView {
             lottieAnimationView.makeGone()
         }
         cartAdapter.submitList(meals)
-    }
-
-
-    private fun showWeekDialog() {
-//        MaterialAlertDialogBuilder(requireContext())
-//            .setTitle(resources.getString(R.string.title))
-//            .setMessage(resources.getString(R.string.supporting_text))
-//            .setNeutralButton(resources.getString(R.string.cancel)) { dialog, which ->
-//                // Respond to neutral button press
-//            }
-//            .setNegativeButton(resources.getString(R.string.decline)) { dialog, which ->
-//                // Respond to negative button press
-//            }
-//            .setPositiveButton(resources.getString(R.string.accept)) { dialog, which ->
-//                // Respond to positive button press
-//            }
-//            .show()
-
+        this.meals = meals
     }
 
 
@@ -149,18 +160,105 @@ class CartFragment : Fragment(), OnClickListenerCart, CartFragmentView {
         this.totalTime = totalTime
     }
 
-    private fun isCartListEmpty()=recyclerView.isEmpty()
-
-
-
+    private fun isCartListEmpty() = recyclerView.isEmpty()
 
     private fun navigateToTimer() {
-        if(!isCartListEmpty()){
-            findNavController().navigate(
-                CartFragmentDirections.actionCartToWaiting(totalTime)
-            )
-        }else{
-            Toast.makeText(requireActivity(), "اضف للسلة بعض المشتريات", Toast.LENGTH_SHORT).show()}
+
+        findNavController().navigate(
+            CartFragmentDirections.actionCartToWaiting(totalTime)
+        )
+    }
+
+
+    private fun showWeekDialog() {
+
+        dialog = MaterialAlertDialogBuilder(requireContext())
+            .setTitle(resources.getString(R.string.title_dialog_of_send_message))
+            .setView(makeViewForDialog())
+            .show()
 
     }
+
+    private fun makeViewForDialog(): View {
+        val customView = LayoutInflater.from(context).inflate(R.layout.send_message, null)
+        val iconStringList = customView.findViewById<RecyclerView>(R.id.iconStringList)
+        iconStringList.adapter =
+            MessagesAdapter(requireContext(), dataOfDialog(), this::onClickMessage)
+
+        return customView
+    }
+
+    private fun onClickMessage(position: Int) {
+        when (position) {
+            0 -> openWhatsApp(getMessage())
+            1 -> openMessenger(getMessage())
+            2 -> openSMS(getMessage())
+
+        }
+        dialog.dismiss()
+        navigateToTimer()
+
+    }
+
+    private fun dataOfDialog() = arrayOf(
+        WayOfSend(getString(R.string.WhatApp), R.drawable.whatsapp_),
+        WayOfSend(getString(R.string.Messenger), R.drawable.messenger),
+        WayOfSend(getString(R.string.SMS), R.drawable.sms)
+    )
+
+    private fun getMessage(): String {
+
+        return getString(R.string.start_of_message) + "\n" + meals.joinToString("\n") { meal ->
+            getString(
+                R.string.message_of_request,
+                meal.mealQuantityValue.convertToArabicFormat(),
+                meal.mealQuantityUnit,
+                meal.name,
+                meal.price.convertToArabicFormat()
+            )
+        } + "\n" + getString(R.string.end_of_message, checkoutValue.text)
+
+
+    }
+
+    private fun openWhatsApp(message: String) {
+        try {
+            val intent = Intent(Intent.ACTION_VIEW)
+            intent.setDataAndType(
+                Uri.parse("https://wa.me/+201119112723?text=$message"),
+                "text/plain"
+            )
+            startActivity(intent)
+        } catch (ex: ActivityNotFoundException) {
+
+        }
+
+    }
+
+    private fun openMessenger(message: String) {
+        try {
+            val intent = Intent(Intent.ACTION_SEND)
+            intent.type = "text/plain"
+            intent.setPackage("com.facebook.orca")
+            intent.putExtra(
+                Intent.EXTRA_TEXT,
+                message
+            )
+            startActivity(intent)
+        } catch (ex: ActivityNotFoundException) {
+
+        }
+
+    }
+
+    private fun openSMS(message: String) {
+        val countryCode = "+2"
+        val phoneNumber = "01119112723"
+        val intent = Intent(Intent.ACTION_VIEW)
+        intent.data = Uri.parse("smsto:$countryCode$phoneNumber")
+        intent.putExtra("sms_body", message)
+        startActivity(intent)
+
+    }
+
 }
